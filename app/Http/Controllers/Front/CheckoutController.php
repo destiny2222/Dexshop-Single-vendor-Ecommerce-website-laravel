@@ -34,7 +34,7 @@ class CheckoutController extends Controller
         }
 
 
-        $paystackPublicKey = env('PAYSTACK_PUBLIC_KEY');
+        // $paystackPublicKey = env('PAYSTACK_PUBLIC_KEY');
 
         $cart_item_count = CartItem::where('user_id', auth()->user()->id)->count();
         $wishlist_item_count = Wishlist::where('user_id', auth()->user()->id)->count();
@@ -49,7 +49,7 @@ class CheckoutController extends Controller
             'totalprice' => $totalprice,
             'total' => $total,
             'categories' => $categories,
-            'paystackPublicKey'=>$paystackPublicKey,
+            // 'paystackPublicKey'=>$paystackPublicKey,
         ]);
     }
 
