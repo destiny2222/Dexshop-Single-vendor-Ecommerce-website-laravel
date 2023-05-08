@@ -26,7 +26,7 @@
                      All Categories
                   </button>
                   <div class="tp-category-mobile-menu">
-                     
+
                   </div>
                </div>
                <div class="tp-main-menu-mobile fix d-lg-none mb-40"></div>
@@ -39,25 +39,17 @@
                   </div>
                   <div class="offcanvas__contact-content">
                      <h3 class="offcanvas__contact-title">
-                        <a href="tel:098-852-987">004524865</a>
+                        <a href="#">004524865</a>
                      </h3>
                   </div>
                </div>
-               <div class="offcanvas__btn">
-                  <a href="contact.html" class="tp-btn-2 tp-btn-border-2">Contact Us</a>
-               </div>
+               {{-- <div class="offcanvas__btn">
+                  <a href="#" class="tp-btn-2 tp-btn-border-2">Contact Us</a>
+               </div> --}}
             </div>
             <div class="offcanvas__bottom">
                <div class="offcanvas__footer d-flex align-items-center justify-content-between">
-                  <div class="offcanvas__currency-wrapper currency">
-                     <span class="offcanvas__currency-selected-currency tp-currency-toggle" id="tp-offcanvas-currency-toggle">Currency : USD</span>
-                     <ul class="offcanvas__currency-list tp-currency-list">
-                        <li>USD</li>
-                        <li>ERU</li>
-                        <li>BDT </li>
-                        <li>INR</li>
-                     </ul>
-                  </div>
+
                   <div class="offcanvas__select language">
                      <div class="offcanvas__lang d-flex align-items-center justify-content-md-end">
                         <div class="offcanvas__lang-img mr-15">
@@ -87,7 +79,7 @@
             <div class="row row-cols-5">
                <div class="col">
                   <div class="tp-mobile-item text-center">
-                     <a href="shop.html" class="tp-mobile-item-btn">
+                     <a href="/shop" class="tp-mobile-item-btn">
                         <i class="flaticon-store"></i>
                         <span>Store</span>
                      </a>
@@ -103,7 +95,7 @@
                </div>
                <div class="col">
                   <div class="tp-mobile-item text-center">
-                     <a href="wishlist.html" class="tp-mobile-item-btn">
+                     <a href="{{ route('wishlist.index') }}" class="tp-mobile-item-btn">
                         <i class="flaticon-love"></i>
                         <span>Wishlist</span>
                      </a>
@@ -111,10 +103,17 @@
                </div>
                <div class="col">
                   <div class="tp-mobile-item text-center">
-                     <a href="profile.html" class="tp-mobile-item-btn">
-                        <i class="flaticon-user"></i>
-                        <span>Account</span>
-                     </a>
+                     @guest
+                        <a href="/login" class="tp-mobile-item-btn">
+                            <i class="flaticon-user"></i>
+                            <span>Account</span>
+                        </a>
+                        @else
+                        <a href="/dashboard" class="tp-mobile-item-btn">
+                            <i class="flaticon-user"></i>
+                            <span>Account</span>
+                        </a>
+                     @endguest
                   </div>
                </div>
                <div class="col">

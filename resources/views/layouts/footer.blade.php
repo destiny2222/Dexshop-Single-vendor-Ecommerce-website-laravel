@@ -7,8 +7,8 @@
                    <div class="tp-footer-widget footer-col-1 mb-50">
                       <div class="tp-footer-widget-content">
                          <div class="tp-footer-logo">
-                            <a href="index.html">
-                               <img src="assets/img/logo/logo.svg" alt="logo">
+                            <a href="/">
+                               {{-- <img src="assets/img/logo/logo.svg" alt="logo"> --}}
                             </a>
                          </div>
                          <p class="tp-footer-desc">We are a team of designers and developers that create high quality WordPress</p>
@@ -101,7 +101,7 @@
                 <div class="row align-items-center">
                    <div class="col-md-6">
                       <div class="tp-footer-copyright">
-                         <p>© 2023 All Rights Reserved  |  HTML Template by <a href="index.html">Themepure</a>.</p>
+                         <p>© 2023 All Rights Reserved |<a href="dexnovate.com">Dexnovate</a>.</p>
                       </div>
                    </div>
                    <div class="col-md-6">

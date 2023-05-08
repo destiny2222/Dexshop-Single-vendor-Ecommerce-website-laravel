@@ -2,7 +2,7 @@
 <div class="modal fade" id="small" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-sm modal-dialog-centered" role="document">
         <div class="modal-content ">
-            
+
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel2">Add  Subcategory</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -40,7 +40,7 @@
                                     @error('image')
                                         <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                     @enderror
-    
+
                                 </div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                     </form>
                 </div>
 
-               
+
             </div>
         </div>
     </div>

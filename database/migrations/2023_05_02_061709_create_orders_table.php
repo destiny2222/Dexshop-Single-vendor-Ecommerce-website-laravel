@@ -23,7 +23,10 @@ return new class extends Migration
             $table->decimal('subtotal', 8, 2)->default(0);
             $table->decimal('total', 8, 2)->default(0);
             $table->string('reference')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country_code')->nullable();
             $table->string('status')->default('pending');
+            $table->timestamp('payment_date')->nullable();
             $table->timestamps();
         });
     }

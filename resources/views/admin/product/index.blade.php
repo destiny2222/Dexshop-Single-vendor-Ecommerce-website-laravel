@@ -42,24 +42,24 @@
                                 @if(count($category->subcategories) > 0)
                                 <div class="collapse show" id="categories-collapse">
                                     <div class="card p-2 border shadow-none">
-                                        
+
                                         <ul class="list-unstyled categories-list mb-0">
                                             @foreach($category->subcategories as $subcategory)
                                             <li><a href="#"><i class="mdi mdi-circle-medium me-1"></i>{{ $subcategory->name }}</a></li>
                                             @endforeach
                                         </ul>
-                                        
+
                                     </div>
                                 </div>
                                 @endif
                             @endforeach
-                           
-                            
+
+
                         </div>
-                        
+
                     </div>
 
-                   
+
 
                 </div>
             </div>
@@ -89,9 +89,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
-                            
+
                             <div class="row">
                                 @foreach ($product as $item)
                                     <div class="col-xl-4 col-sm-6">
@@ -111,11 +111,11 @@
                                                 </div>
                                                 <img src="{{ asset('storage/product/'.$item->image ) }}" alt="" class="img-fluid mx-auto d-block">
                                             </div>
-                                            
+
                                             <div class="text-center product-content px-4 pt-5 pb-4">
-                                                
+
                                                 <h5 class="mb-1"><a href="#" class="text-dark">{{  $item->name }}</a></h5>
-                                                <p class="text-muted font-size-13">{{   $item->subcategory->name }}</p>
+                                                <p class="text-muted font-size-13">{{ $item->subcategory->name }}</p>
 
                                                 <h5 class="mt-3 mb-0">
                                                     <span class="text-muted me-2">
@@ -127,14 +127,14 @@
                                                     <li class="list-inline-item text-center icon-demo-content" data-bs-toggle="modal" data-bs-target="#modalTop{{ $item->id }}">
                                                         <i class="uil-edit"></i>
                                                     </li>
-                                                    
+
                                                 </ul>
                                             </div>
-                                            
+
                                         </div>
                                         @include('admin.product.edit')
                                     </div>
-                                   
+
                                 @endforeach
                             </div>
                             <!-- end row -->
@@ -180,7 +180,7 @@
 
         </div>
         <!-- end row -->
-        
+
     </div> <!-- container-fluid -->
 
 @endsection

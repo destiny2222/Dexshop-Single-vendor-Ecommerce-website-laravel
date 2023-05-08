@@ -23,12 +23,12 @@ class ProductController extends Controller
         //
         $categories = Category::with('subcategories')->get();
         $subcategory = subcategory::orderBy('id', 'desc')->get();
-        $product = Product::orderBy('id', 'desc')->paginate(2);
-        
+        $product = Product::with('subcategory')->orderBy('id', 'desc')->paginate(2);
+
         foreach ($subcategory as $sub) {
             // dd($sub->id);
         }
-        
+
         return view('admin.product.index', compact('product', 'categories', 'sub'));
     }
 
@@ -56,7 +56,7 @@ class ProductController extends Controller
         } else {
             return back()->with('error', 'Oops something went worry');
         }
-        
+
     }
 
     /**
@@ -90,7 +90,7 @@ class ProductController extends Controller
         //
         try{
             $product = Product::findOrFail($id);
-            $cate = $request->input('subcategory_id'); 
+            $cate = $request->input('subcategory_id');
             $product->update([
                 'name'=>$request->input('name'),
                 'body'=>$request->input('body'),

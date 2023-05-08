@@ -18,14 +18,14 @@
     <link rel="manifest" href="/assets/images/solar/logo.png">
     <link rel="mask-icon" href="/assets/images/solar/logo.png" color="#666666">
     <link rel="shortcut icon" href="/assets/images/solar/logo.png">
-    <meta name="apple-mobile-web-app-title" content="Green Fusion">
-    <meta name="application-name" content="Green Fusion">
+    <meta name="apple-mobile-web-app-title" content="">
+    <meta name="application-name" content="">
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="/assets/images/solar/logo.png">
     <meta name="theme-color" content="#ffffff">
 
           <!-- Place favicon.ico in the root directory -->
-          <link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/favicon.png">
+          <!--<link rel="shortcut icon" type="image/x-icon" href="assets/img/logo/favicon.png">-->
 
           <!-- CSS here -->
           <link rel="stylesheet" href="/assets/css/bootstrap.css">

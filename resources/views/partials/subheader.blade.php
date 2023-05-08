@@ -95,7 +95,7 @@
                        <div class="col-xl-2 col-lg-5 col-md-5 col-sm-4 col-6">
                           <div class="logo">
                              <a href="/">
-                                <img src="assets/img/logo/logo.svg" alt="logo">
+                                {{-- <img src="assets/img/logo/logo.svg" alt="logo"> --}}
                              </a>
                           </div>
                        </div>
@@ -115,7 +115,7 @@
 
                                    </li>
                                    <li class="">
-                                      <a href="blog">Blog</a>
+                                      <a href="#">Blog</a>
                                    </li>
                                    <li><a href="/contact">Contact</a></li>
                                 </ul>
@@ -196,7 +196,7 @@
      <!-- header area end -->
 
      <!-- filter offcanvas area start -->
-     <div class="tp-filter-offcanvas-area">
+     {{-- <div class="tp-filter-offcanvas-area">
         <div class="tp-filter-offcanvas-wrapper">
            <div class="tp-filter-offcanvas-close">
               <button type="button" class="tp-filter-offcanvas-close-btn filter-close-btn">
@@ -568,5 +568,5 @@
               </div>
            </div>
         </div>
-     </div>
+     </div> --}}
      <!-- filter offcanvas area end -->

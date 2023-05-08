@@ -12,6 +12,7 @@ Route::get('/', [PageController::class, 'home'])->name('hone-page');
 Route::get('/shop', [PageController::class, 'shop'])->name('shop-page');
 // PRODUCT DETAILS
 Route::get('/products/{slug}', [pagecontroller::class, 'ItemDetails'])->name('product-details');
+Route::get('/products-details/{slug}', [PageController::class, 'ProductDetails'])->name('product-single');
 // WISHLIST
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/add/', [WishlistController::class, 'addProduct'])->name('wishlist.add');

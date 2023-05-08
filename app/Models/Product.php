@@ -20,10 +20,11 @@ class Product extends Model
         'slug',
     ];
 
-    public function subcategory()
+    public function subCategory()
     {
-       return  $this->belongsTo(Subcategory::class);
+        return $this->belongsTo(SubCategory::class, 'subcategory_id');
     }
+
 
     public function cartItems()
     {
