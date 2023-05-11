@@ -23,7 +23,7 @@
     <!-- end page title -->
     <form action="{{ route('admin.product.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
-        @if (count($subcategory) != 0)
+        @if (count($subcategories) != 0)
             <div class="row">
             <div class="col-lg-12">
                 <div id="addproduct-accordion" class="custom-accordion">
@@ -94,8 +94,8 @@
                                                     <label class="form-label" class="control-label">Category</label>
                                                     <select class="form-control select2 @error('subcategory_id') is-invalid  @enderror" name="subcategory_id">
                                                         <option>Select</option>
-                                                        @foreach ($subcategory as $subcategories)
-                                                            <option value="{{ $subcategories->id }}" >{{  $subcategories->name }}</option>
+                                                        @foreach ($subcategories as $subcategory)
+                                                            <option value="{{ $subcategory->id }}" >{{  $subcategory->name }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -107,9 +107,18 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-12 mb-3">
-                                            <label class="form-label" for="inputGroupFile01">Product image</label>
-                                            <input type="file"  name="image" class="form-control  @error('image') is-invalid @enderror" id="inputGroupFile01" />
-                                            @error('image')
+                                            <label class="form-label" for="productImage">Product image</label>
+                                            <input type="file"  name="cover_image" class="form-control  @error('cover_image') is-invalid @enderror" id="productImage" />
+                                            @error('cover_image')
+                                                <span class="invalid-feedback" role="alert">
+                                                    {{ $message }}
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="col-lg-12 mb-3">
+                                            <label class="form-label" for="inputGroupFile01">Cover image</label>
+                                            <input type="file"  name="images[]" class="form-control  @error('images') is-invalid @enderror" id="inputGroupFile01"  multiple />
+                                            @error('images')
                                                 <span class="invalid-feedback" role="alert">
                                                     {{ $message }}
                                                 </span>
@@ -118,7 +127,7 @@
                                         <div class="col-lg-12">
                                             <div class="mb-0">
                                                 <label class="form-label" for="productdesc">Product Description</label>
-                                                <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="productdesc" rows="4" placeholder="Enter your Product Description"></textarea>
+                                                <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" rows="4" placeholder="Enter your Product Description"></textarea>
                                                 @error('body')
                                                     <span class="invalid-feedback" role="alert">
                                                         {{ $message }}
@@ -126,11 +135,19 @@
                                                 @enderror
                                             </div>
                                         </div>
-
+                                        <input type="hidden" name="product_id" value="">
+                                        <div class="my-3">
+                                            <label class="form-label" for="metadescription">Specifications</label>
+                                            <textarea class="form-control" name="specification" id="editor" rows="4"></textarea>
+                                        </div>
+                                        <div class="my-3">
+                                            <label class="form-label" for="metadescription">Key features</label>
+                                            <textarea class="form-control" name="keyfeature" id="editors" rows="4"></textarea>
+                                        </div>
                                         <div class="col-sm-12">
                                             <div class="mb-3">
                                                 <div class="form-check form-switch form-switch-lg">
-                                                    <input type="checkbox" name="status" class="form-check-input" id="customSwitchsizelg" >
+                                                    <input type="checkbox" name="status" class="form-check-input" id="customSwitchsizelg" {{ old('status') ? 'checked' : '' }} >
                                                     <label class="form-check-label" for="customSwitchsizelg">Large Size Switch</label>
                                                 </div>
                                                 @error('status')
@@ -171,97 +188,8 @@
 
     </form>
 </div> <!-- container-fluid -->
+
+
 @endsection
-
-<!-- Modal -->
-    {{-- <div class="modal fade" id="modalCenter" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modalCenterTitle">Add Blog</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    @if(count($categories) != 0)
-                    <form >
-                        @csrf
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-fullname">{{ __(' Product Name ') }}</label>
-                            <input type="text" name="name"
-                                class="form-control @error('name') is-invalid @enderror" id="basic-default-fullname"
-                                placeholder="Product Name" />
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    {{ $message }}
-                                </span>
-                            @enderror
-
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-company">{{ __('Product Price') }}</label>
-                            <input type="text" name="price"
-                                class="form-control  @error('price') is-invalid @enderror" id="basic-default-company"
-                                placeholder="Product Price." />
-                            @error('price')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-company">{{ __('Discount Price') }}</label>
-                            <input type="text" name="discount"
-                                class="form-control  @error('discount') is-invalid @enderror" id="basic-default-company"
-                                placeholder="Discount Price." />
-                            @error('discount')
-                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                            @enderror
-                        </div>
-
-                        <div class="mb-3">
-                            <div>
-                                <label for="defaultSelect" class="form-label">{{ __('Categories') }}</label>
-                                <select id="defaultSelect" name="category_id" class="form-select ">
-                                    @foreach ($categories as $item)
-                                        <option value="{{ $item->id }}">{{ $item->name }}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="input-group">
-                                <input type="file" name="image"
-                                    class="form-control  @error('image') is-invalid @enderror" id="inputGroupFile01" />
-                                @error('image')
-                                    <span class="invalid-feedback" role="alert">{{ $message }}</span>
-                                @enderror
-
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="basic-default-message">{{ __(' Product Description ') }}</label>
-                            <textarea  id="body" name="body" class="form-control"
-                                placeholder="Hi, Do you have a moment to talk Joe?"></textarea>
-                        </div>
-                        <div class="text-end">
-                            <button type="submit" class="btn btn-primary ">{{ __(' Save ') }}</button>
-                        </div>
-
-                    </form>
-                    @else
-                    <div class="card">
-                        <div class="card-header">
-                            <a href="{{ route('admin.category.index') }}" class="btn btn-primary">
-                                Create New Category
-                            </a>
-                        </div>
-                        <div class="card-body">
-                            You have not created any Category yet. PLease create one now
-                        </div>
-                    </div>
-                @endif
-                </div>
-            </div>
-        </div>
-    </div> --}}
 
 

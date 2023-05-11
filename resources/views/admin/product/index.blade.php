@@ -109,7 +109,7 @@
                                                         <i class="mdi mdi-heart-outline"></i>
                                                     </a> --}}
                                                 </div>
-                                                <img src="{{ asset('storage/product/'.$item->image ) }}" alt="" class="img-fluid mx-auto d-block">
+                                                <img src="{{ asset('storage/product/'.$item->cover_image ) }}" alt="" class="img-fluid mx-auto d-block">
                                             </div>
 
                                             <div class="text-center product-content px-4 pt-5 pb-4">
@@ -119,9 +119,9 @@
 
                                                 <h5 class="mt-3 mb-0">
                                                     <span class="text-muted me-2">
-                                                        <del>${{ $item->price  }}</del>
+                                                        <del>${{  $item->discount_price }}</del>
                                                     </span>
-                                                    ${{  $item->discount }}
+                                                    ${{ $item->price  }}
                                                 </h5>
                                                 <ul class="list-inline mb-0 text-muted product-color">
                                                     <li class="list-inline-item text-center icon-demo-content" data-bs-toggle="modal" data-bs-target="#modalTop{{ $item->id }}">
@@ -148,27 +148,7 @@
                                 <div class="col-sm-6">
                                     <div class="float-sm-end">
                                         <ul class="pagination pagination-rounded mb-sm-0">
-                                            <li class="page-item disabled">
-                                                <a href="#" class="page-link"><i class="mdi mdi-chevron-left"></i></a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link">1</a>
-                                            </li>
-                                            <li class="page-item active">
-                                                <a href="#" class="page-link">2</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link">3</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link">4</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link">5</a>
-                                            </li>
-                                            <li class="page-item">
-                                                <a href="#" class="page-link"><i class="mdi mdi-chevron-right"></i></a>
-                                            </li>
+                                            {{-- {{ $users->onEachSide(5)->links() }} --}}
                                         </ul>
                                     </div>
                                 </div>

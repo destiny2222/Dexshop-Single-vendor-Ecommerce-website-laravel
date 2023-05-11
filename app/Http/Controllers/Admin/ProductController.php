@@ -25,8 +25,8 @@ class ProductController extends Controller
         $subcategory = subcategory::orderBy('id', 'desc')->get();
         $product = Product::with('subcategory')->orderBy('id', 'desc')->paginate(2);
 
-        foreach ($subcategory as $sub) {
-            // dd($sub->id);
+        foreach($subcategory as $sub){
+
         }
 
         return view('admin.product.index', compact('product', 'categories', 'sub'));
@@ -39,9 +39,8 @@ class ProductController extends Controller
     {
         //
         // Get the subcategory with the specified ID
-        $subcategory = subcategory::orderBy('id', 'desc')->get();
-        // dd($subcategory);
-        return view('admin.product.create', compact('subcategory'));
+        $subcategories = subcategory::get();
+        return view('admin.product.create', compact('subcategories'));
     }
 
     /**
@@ -52,7 +51,7 @@ class ProductController extends Controller
         //
         // dd($request->createProduct());
         if ($request->createProduct()) {
-            return back()->with('success', 'Successfully added!');
+            return redirect(route('admin.product.index'))->with('success', 'Successfully added!');
         } else {
             return back()->with('error', 'Oops something went worry');
         }
@@ -62,7 +61,7 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show()
     {
         //
     }
@@ -95,6 +94,8 @@ class ProductController extends Controller
                 'name'=>$request->input('name'),
                 'body'=>$request->input('body'),
                 'price'=>$request->input('price'),
+                'keyfeature'=>$request->input('keyfeature'),
+                'specification'=>$request->input('specification'),
                 'discount'=>$request->input('discount'),
                 'slug'=>Str::slug($request->input('name')),
                 'image'=>update_image('product',$product->image, 'image'),
@@ -105,7 +106,7 @@ class ProductController extends Controller
             return back();
         }catch(\Exception  $exception){
             Log::error($exception->getMessage());
-            Alert::error('error', 'Ooop  Something Went Wrong');
+            Alert::error('error', 'Oops  Something Went Wrong');
             return back();
         }
     }
@@ -123,7 +124,7 @@ class ProductController extends Controller
             return back();
         }catch(\Exception  $exception){
             Log::error($exception->getMessage());
-            Alert::error('error', 'Ooop  Something Went Wrong');
+            Alert::error('error', 'Oops  Something Went Wrong');
             return back();
         }
     }

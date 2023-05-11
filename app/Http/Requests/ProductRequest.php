@@ -25,33 +25,63 @@ class ProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'=>['string', 'required'],
-            'price'=>['numeric', 'required'],
-            'discount'=>['numeric', 'required'],
-            'body'=>['string', 'required'],
-            'image'=>['image', 'nullable', 'mimes:jpeg,png,jpg,gif,svg'],
+            'name' => ['string', 'required'],
+            'price' => ['numeric', 'required'],
+            'discount' => ['numeric', 'required'],
+            'body' => ['string', 'required'],
+            'cover_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'images.*' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
+            'status' => ['nullable', 'string'],
+            'keyfeature'=>'nullable'|'required'|'string',
+            'specification'=>'nullable'|'required'|'string',
         ];
     }
 
     public function createProduct()
     {
-        try{
+        $fileNameToStore = null;
+
+        if ($this->hasFile('cover_image')){
+            $fileExt = $this->file('cover_image')->getClientOriginalExtension();
+            $fileName = rand(1,10000).time();
+            $fileNameToStore = "$fileName.$fileExt";
+            $this->file('cover_image')->storeAs('product', $fileNameToStore, 'public');
+        }
+
+        $images = [];
+
+        if ($this->hasFile('images')) {
+            $uploadedImages = $this->file('images');
+
+            foreach ($uploadedImages as $uploadedImage) {
+                $ext = $uploadedImage->getClientOriginalExtension();
+                $fileName = substr(rand(1,9000000000000).time(), 2);
+                $imageName = $fileName . '.' . $ext;
+                $uploadedImage->storeAs('products/images', $imageName, 'public');
+                $images[] = $imageName;
+            }
+        }
+
+        try {
             # fetching category ids
-            $categoryIds = $this->input('subcategory_id'); 
-            // foreach ($categoryIds as $categoryId) {
-                Product::create([
-                    'name' => $this->name,
-                    'body' => $this->body,
-                    'discount' => $this->discount,
-                    'price' => $this->price,
-                    'slug' => Str::slug($this->name),
-                    'image' => upload_single_image('product', 'image'),
-                    'subcategory_id' => $categoryIds,
-                    'status' => $this->status == 'on' ? 1 : 0,
-                ]);
-            // }
+            $categoryIds = $this->input('subcategory_id');
+            Product::create([
+                'name' => $this->name,
+                'body' => $this->body,
+                'discount'=>$this->discount,
+                'specification'=>$this->input('specification'),
+                'keyfeature'=>$this->input('keyfeature'),
+                'price' =>$this->price,
+                'slug' =>Str::slug($this->name),
+                'cover_image'=> $fileNameToStore,
+                'images'=>$images,
+                'SKU'=>Str::random(10),
+                'subcategory_id' => $categoryIds,
+                'status' => $this->status == 'on' ? 1 : 0,
+            ]);
+
             return true;
-        }catch(\Exception $exception){
+        } catch (\Exception $exception) {
             Log::error($exception->getMessage());
             return false;
         }

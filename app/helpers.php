@@ -20,7 +20,7 @@
             return $currentImagePath;
         }
     }
-    
+
     if (!function_exists('upload_single_image')){
         function upload_single_image($folder,$key): string
         {
@@ -38,7 +38,7 @@
             return $fileNameToStore;
         }
     }
-    
+
     if (!function_exists('upload_multiple_images')){
         function upload_multiple_images($folder)
         {

@@ -57,7 +57,15 @@
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="basic-default-message">{{ __(' Message ') }}</label>
-                            <textarea  id="body" name="body" class="form-control">{{ $item->body }}</textarea>
+                            <textarea  id="summary" name="body" class="form-control">{{ $item->body }}</textarea>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="basic-default-message">{{ __(' Specifications ') }}</label>
+                            <textarea  id="summary" name="editor" class="form-control">{{ $item->specification }}</textarea>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label" for="basic-default-message">{{ __(' Keyfeatures ') }}</label>
+                            <textarea  id="summary" name="editors" class="form-control">{{ $item->keyfeature }}</textarea>
                         </div>
                     </div>
                     <div class="row g-2">
@@ -71,4 +79,5 @@
     </div>
 </div>
 
+        <!-- App js -->
 {{-- @include('layouts.script') --}}

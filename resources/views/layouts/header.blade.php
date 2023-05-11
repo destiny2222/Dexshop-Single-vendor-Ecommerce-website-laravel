@@ -190,9 +190,9 @@
 
                                </li>
                                <li class="">
-                                  <a href="#">Blog</a>
+                                  <a href="/blog">Blog</a>
                                </li>
-                               <li><a href="#">Contact</a></li>
+                               <li><a href="/contact">Contact</a></li>
                             </ul>
                          </nav>
                       </div>
@@ -249,10 +249,10 @@
                          </li>
 
                          <li class="">
-                            <a href="#">Blog</a>
+                            <a href="/blog">Blog</a>
 
                          </li>
-                         <li><a href="#">Contact</a></li>
+                         <li><a href="/contact">Contact</a></li>
                       </ul>
                    </nav>
                 </div>

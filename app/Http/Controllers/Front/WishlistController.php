@@ -36,7 +36,7 @@ class WishlistController extends Controller
 
         $wishlist = Wishlist::where('user_id', $user_id)->where('product_id', $product_id)->first();
         if ($wishlist) {
-            return response()->json(['message' => 'Product already in wishlist']);
+            return response()->json(['info' => 'Product already in wishlist']);
         }
         if (!$wishlist) {
             $wishlist = new Wishlist();

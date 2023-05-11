@@ -229,7 +229,7 @@
                                             <div class="tp-product-item-2 mb-40">
                                                 <div class="tp-product-thumb-2 p-relative z-index-1 fix w-img">
                                                     <a href="{{ route('product-single', $item->slug) }}">
-                                                        <img src="{{ asset('storage/product/'.$item->image) }}" alt="">
+                                                        <img src="{{ asset('storage/product/'.$item->cover_image) }}" alt="">
                                                     </a>
                                                     <!-- product action -->
                                                     <div class="tp-product-action-2 tp-product-action-blackStyle">
@@ -284,7 +284,7 @@
                                                     </div>
                                                     <div class="tp-product-price-wrapper-2">
                                                         <span class="tp-product-price-2 new-price">${{  $item->price }}</span>
-                                                        <span class="tp-product-price-2 old-price">${{   $item->discount }}</span>
+                                                        <span class="tp-product-price-2 old-price">${{   $item->discount_price }}</span>
                                                     </div>
                                                 </div>
                                             </div>

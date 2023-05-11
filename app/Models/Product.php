@@ -15,7 +15,9 @@ class Product extends Model
         'discount',
         'status',
         'body',
-        'image',
+        'images',
+        'SKU',
+        'cover_image',
         'subcategory_id',
         'slug',
     ];
@@ -36,6 +38,18 @@ class Product extends Model
         return $this->hasMany(Wishlist::class);
     }
 
+
+
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+
+    public function feedbacks()
+    {
+        return $this->hasMany(ProductFeedback::class, 'product_id');
+    }
+
     public function getDiscountPriceAttribute()
     {
         if ($this->discount) {
@@ -53,4 +67,8 @@ class Product extends Model
     {
         return Str::slug($this->name);
     }
+
+    protected $casts = [
+        'images' => 'array'
+    ];
 }

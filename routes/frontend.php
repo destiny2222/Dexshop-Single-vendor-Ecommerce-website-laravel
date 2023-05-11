@@ -10,9 +10,14 @@ use Illuminate\Support\Facades\Route;
 // FRONT PAGE
 Route::get('/', [PageController::class, 'home'])->name('hone-page');
 Route::get('/shop', [PageController::class, 'shop'])->name('shop-page');
+Route::get('/blog', [PageController::class, 'blog'])->name('blog-page');
+Route::get('/contact', [PageController::class, 'contact'])->name('contact-page');
+Route::post('/contactform', [PageController::class, 'contactform'])->name('contact-store');
+//Rating and Sending Feedback
+Route::post('rating', [PageController::class, 'storeRate'])->name('rating-store');
 // PRODUCT DETAILS
 Route::get('/products/{slug}', [pagecontroller::class, 'ItemDetails'])->name('product-details');
-Route::get('/products-details/{slug}', [PageController::class, 'ProductDetails'])->name('product-single');
+Route::get('/shop-details/{product}', [PageController::class, 'show'])->name('product-single');
 // WISHLIST
 Route::get('/wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
 Route::post('/wishlist/add/', [WishlistController::class, 'addProduct'])->name('wishlist.add');

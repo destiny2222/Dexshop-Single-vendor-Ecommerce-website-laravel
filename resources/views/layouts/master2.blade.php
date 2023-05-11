@@ -20,10 +20,10 @@
         <!-- App Css-->
         <link href="/vendors/assets/css/app.min.css" id="app-style" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.0.96/css/materialdesignicons.css">
-
+        <script  src="https://cdn.ckeditor.com/ckeditor5/37.1.0/classic/ckeditor.js"></script>
     </head>
 
-    
+
     <body>
 
     <!-- <body data-layout="horizontal" data-topbar="colored"> -->
@@ -32,12 +32,12 @@
         <div id="layout-wrapper">
 
             @include('layouts.header-a')
-            
+
             <!-- ========== Left Sidebar Start ========== -->
               @include('layouts.leftsidebar')
             <!-- Left Sidebar End -->
 
-            
+
 
             <!-- ============================================================== -->
             <!-- Start right Content here -->
@@ -45,7 +45,7 @@
             <div class="main-content">
                 <div class="page-content">
                     @yield('content')
-                </div>    
+                </div>
                 <!-- End Page-content -->
 
 
@@ -53,11 +53,11 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-sm-6">
-                                <script>document.write(new Date().getFullYear())</script> © Minible.
+                                <script>document.write(new Date().getFullYear())</script> © DexShops.
                             </div>
                             <div class="col-sm-6">
                                 <div class="text-sm-end d-none d-sm-block">
-                                    Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="https://themesbrand.com/" target="_blank" class="text-reset">Themesbrand</a>
+                                    Crafted with <i class="mdi mdi-heart text-danger"></i> by <a href="https://dexnovate.com/" target="_blank" class="text-reset">Dexnovate</a>
                                 </div>
                             </div>
                         </div>
@@ -69,7 +69,7 @@
         </div>
         <!-- END layout-wrapper -->
 
-        
+
 
         <!-- Right Sidebar -->
           @include('layouts.right')
@@ -98,7 +98,7 @@
 
          <!-- dropzone plugin -->
          <script src="/vendors/assets/libs/dropzone/min/dropzone.min.js"></script>
- 
+
          <!-- init js -->
          <script src="/vendors/assets/js/pages/ecommerce-add-product.init.js"></script>
         <!-- init js -->
@@ -107,7 +107,7 @@
         <script src="/vendors/assets/js/app.js"></script>
        @include('layouts.message')
        @include('sweetalert::alert')
-
+       @include('partials.script')
     </body>
 
 </html>

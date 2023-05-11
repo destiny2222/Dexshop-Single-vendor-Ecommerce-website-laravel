@@ -1,26 +1,5 @@
-<script src="https://js.paystack.co/v1/inline.js"></script>
+{{-- <script src="https://js.paystack.co/v1/inline.js"></script>
   <script>
-    // const paymentForm = document.getElementById('paymentForm');
-    // paymentForm.addEventListener("submit", payWithPaystack, false);
-    // function payWithPaystack(e) {
-    //   e.preventDefault();
-
-    //   let handler = PaystackPop.setup({
-    //     key: '{{ $paystackPublicKey }}',
-    //     email: document.getElementById("email-address").value,
-    //     amount: document.getElementById("amount").value * 100,
-    //     ref: ''+Math.floor((Math.random() * 1000000000) + 1),
-    //     onClose: function(){
-    //       alert('Window closed.');
-    //     },
-    //     callback: function(response){
-    //       let message = 'Payment complete! Reference: ' + response.reference;
-    //       alert(message);
-    //     }
-    //   });
-
-    //   handler.openIframe();
-    // }
     const paymentForm = document.getElementById('paymentForm');
     paymentForm.addEventListener("submit", payWithPaystack, false);
 
@@ -44,4 +23,27 @@
     handler.openIframe();
     }
 
-  </script>
+  </script> --}}
+
+
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#editors' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
+<script>
+    ClassicEditor
+        .create( document.querySelector( '#body' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+</script>
