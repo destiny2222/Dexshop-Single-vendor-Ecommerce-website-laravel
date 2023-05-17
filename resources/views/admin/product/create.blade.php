@@ -88,7 +88,6 @@
                                                     </span>
                                                 @enderror
                                             </div>
-
                                             <div class="col-lg-4">
                                                 <div class="mb-3">
                                                     <label class="form-label" class="control-label">Category</label>
@@ -105,57 +104,85 @@
                                                     </span>
                                                 @enderror
                                             </div>
-                                        </div>
-                                        <div class="col-lg-12 mb-3">
-                                            <label class="form-label" for="productImage">Product image</label>
-                                            <input type="file"  name="cover_image" class="form-control  @error('cover_image') is-invalid @enderror" id="productImage" />
-                                            @error('cover_image')
-                                                <span class="invalid-feedback" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-lg-12 mb-3">
-                                            <label class="form-label" for="inputGroupFile01">Cover image</label>
-                                            <input type="file"  name="images[]" class="form-control  @error('images') is-invalid @enderror" id="inputGroupFile01"  multiple />
-                                            @error('images')
-                                                <span class="invalid-feedback" role="alert">
-                                                    {{ $message }}
-                                                </span>
-                                            @enderror
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="mb-0">
-                                                <label class="form-label" for="productdesc">Product Description</label>
-                                                <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" rows="4" placeholder="Enter your Product Description"></textarea>
-                                                @error('body')
-                                                    <span class="invalid-feedback" role="alert">
-                                                        {{ $message }}
-                                                    </span>
-                                                @enderror
+                                            <div class="col-lg-4">
+                                                <label class="form-label">Is Featured</label>
+                                                <select name="is_featured" class="form-control select2 select2-search-disable">
+                                                    <option selected>Select</option>
+                                                    <option value="0">No</option>
+                                                    <option value="1">Yes</option>
+                                                </select>
                                             </div>
-                                        </div>
-                                        <input type="hidden" name="product_id" value="">
-                                        <div class="my-3">
-                                            <label class="form-label" for="metadescription">Specifications</label>
-                                            <textarea class="form-control" name="specification" id="editor" rows="4"></textarea>
-                                        </div>
-                                        <div class="my-3">
-                                            <label class="form-label" for="metadescription">Key features</label>
-                                            <textarea class="form-control" name="keyfeature" id="editors" rows="4"></textarea>
-                                        </div>
-                                        <div class="col-sm-12">
-                                            <div class="mb-3">
-                                                <div class="form-check form-switch form-switch-lg">
-                                                    <input type="checkbox" name="status" class="form-check-input" id="customSwitchsizelg" {{ old('status') ? 'checked' : '' }} >
-                                                    <label class="form-check-label" for="customSwitchsizelg">Large Size Switch</label>
+                                            <div class="col-sm-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Badge (option)</label>
+                                                    <select name="badge" class="form-control select2 select2-search-disable">
+                                                        <option selected>Select</option>
+                                                        <option value="new">New</option>
+                                                        <option value="sale">Sale</option>
+                                                    </select>
+                                                    @error('badge')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
                                                 </div>
-                                                @error('status')
+                                            </div>
+                                            <div class="col-lg-4">
+                                                <div class="mb-3">
+                                                    <label class="form-label">Status (option)</label>
+                                                    <select name="status" class="form-control select2 select2-search-disable">
+                                                        <option selected>Select</option>
+                                                        <option value="instock">In Stock</option>
+                                                        <option value="outstock">Out Stock</option>
+                                                    </select>
+                                                    @error('status')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-3">
+                                                <label class="form-label" for="productImage">Product image</label>
+                                                <input type="file"  name="cover_image" class="form-control  @error('cover_image') is-invalid @enderror" id="productImage" />
+                                                @error('cover_image')
                                                     <span class="invalid-feedback" role="alert">
                                                         {{ $message }}
                                                     </span>
                                                 @enderror
                                             </div>
+                                            <div class="col-lg-12 mb-3">
+                                                <label class="form-label" for="inputGroupFile01">Cover image</label>
+                                                <input type="file"  name="images[]" class="form-control  @error('images') is-invalid @enderror" id="inputGroupFile01"  multiple />
+                                                @error('images')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        {{ $message }}
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                            <div class="col-lg-12">
+                                                <div class="mb-0">
+                                                    <label class="form-label" for="productdesc">Product Description</label>
+                                                    <textarea class="form-control @error('body') is-invalid @enderror" name="body" id="body" rows="4" placeholder="Enter your Product Description"></textarea>
+                                                    @error('body')
+                                                        <span class="invalid-feedback" role="alert">
+                                                            {{ $message }}
+                                                        </span>
+                                                    @enderror
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 my-3">
+                                                <label class="form-label" for="metadescription">Specifications</label>
+                                                <textarea class="form-control" name="specification" id="editor" rows="4"></textarea>
+                                            </div>
+                                            <div class="col-lg-12 my-3">
+                                                <label class="form-label" for="metadescription">Key features</label>
+                                                <textarea class="form-control" name="keyfeature" id="editors" rows="4"></textarea>
+                                            </div>
+
+
                                         </div>
                                     <!-- </form>  -->
                                 </div>

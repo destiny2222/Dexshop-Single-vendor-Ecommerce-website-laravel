@@ -1,5 +1,9 @@
 <?php
 
+use App\Models\CartItem;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
+
     if (!function_exists('update_image')){
         function update_image($folder,$currentImagePath,$key) : String{
             if (request()->hasFile($key)){
@@ -20,6 +24,7 @@
             return $currentImagePath;
         }
     }
+    
 
     if (!function_exists('upload_single_image')){
         function upload_single_image($folder,$key): string
@@ -59,3 +64,51 @@
             }
         }
     }
+
+
+// CartHelper.php
+
+function calculateTotalPrice()
+{
+    $cart = CartItem::all();
+    $totalPrice = 0;
+    foreach ($cart as $carted) {
+        $totalPrice += $carted->product->price * $carted->quantity;
+    }
+
+    return [
+        'cart' => $cart,
+        'totalPrice' => $totalPrice
+    ];
+}
+
+// app/Helpers/UserHelper.php
+
+
+
+function getCartItemCount()
+{
+    $user = Auth::user();
+    return $user ? $user->cartitem()->count() : 0;
+}
+
+function getWishlistItemCount()
+{
+    $user = Auth::user();
+    return $user ? $user->wishlist()->count() : 0;
+}
+
+function getOrderItemCount()
+{
+    $user = Auth::user();
+    return $user ? $user->orders()->count() : 0;
+}
+
+
+// product categories
+
+function getCategoryTree()
+{
+    return Category::with('subcategories')->get();
+}
+

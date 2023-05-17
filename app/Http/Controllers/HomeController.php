@@ -31,11 +31,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user = Auth::user()->id;
-        $categories = SubCategory::all();
-        $cart_item_count = CartItem::where('user_id', $user)->count();
-        $wishlist_item_count = Wishlist::where('user_id', $user)->count();
-        return view('dashboard.index', compact('cart_item_count','wishlist_item_count','categories'));
+
+        return view('dashboard.index');
     }
 
 
@@ -88,5 +85,12 @@ class HomeController extends Controller
             Alert::error('Error', 'Something went Wrong');
             return back()->with('error', 'Oops Something went worry');
         }
+    }
+
+    public function destory($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('hone-page')->with('success', 'Account Deleted');
     }
 }

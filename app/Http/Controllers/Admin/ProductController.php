@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use App\Models\subcategory;
+use App\Models\SubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -22,14 +22,11 @@ class ProductController extends Controller
     {
         //
         $categories = Category::with('subcategories')->get();
-        $subcategory = subcategory::orderBy('id', 'desc')->get();
-        $product = Product::with('subcategory')->orderBy('id', 'desc')->paginate(2);
+        $subcategory = SubCategory::get();
+        $product = Product::with('subCategory')->get();
 
-        foreach($subcategory as $sub){
 
-        }
-
-        return view('admin.product.index', compact('product', 'categories', 'sub'));
+        return view('admin.product.index', compact('product', 'categories', 'subcategory'));
     }
 
     /**
@@ -39,7 +36,7 @@ class ProductController extends Controller
     {
         //
         // Get the subcategory with the specified ID
-        $subcategories = subcategory::get();
+        $subcategories = SubCategory::get();
         return view('admin.product.create', compact('subcategories'));
     }
 
@@ -98,16 +95,14 @@ class ProductController extends Controller
                 'specification'=>$request->input('specification'),
                 'discount'=>$request->input('discount'),
                 'slug'=>Str::slug($request->input('name')),
-                'image'=>update_image('product',$product->image, 'image'),
+                'cover_image'=>update_image('product',$product->cover_image, 'cover_image'),
                 'subcategory_id'=>$cate,
-                'status'=> $request->status == 'on' ? 1 : 0,
+                'status'=> $request->input('status'),
             ]);
-            Alert::success('success', 'Successful Updated');
-            return back();
+            return back()->with('success', 'Successful Updated');
         }catch(\Exception  $exception){
             Log::error($exception->getMessage());
-            Alert::error('error', 'Oops  Something Went Wrong');
-            return back();
+            return back()->with('error', 'Oops  Something Went Wrong');
         }
     }
 

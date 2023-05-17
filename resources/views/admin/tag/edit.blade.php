@@ -8,7 +8,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('tags.update', $tagger->id ) }}" method="POST">
+                <form action="{{ route('admin.tags.update', $tagger->id ) }}" method="POST">
                     @csrf
                     @method('put')
                     <div class="row">

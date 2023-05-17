@@ -25,7 +25,7 @@ class BlogRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>['required','string'],
+            'title'=>['required','string'],
             'author'=>['required','string'],
             'body'=>['nullable','string'],
             'tag'=>['required'],
@@ -35,15 +35,17 @@ class BlogRequest extends FormRequest
 
 
     public function createNewBlog(){
+
+
         $categoryid = $this->input('category_id');
         try{
             // $slug  = ;
             Blog::create([
-                'name'=>$this->name,
+                'title'=>$this->title,
                 'author'=>$this->author,
                 'body'=>$this->body,
                 'category_id'=>$categoryid,
-                'slug'=>Str::slug($this->name),
+                'slug'=>Str::slug($this->title),
                 'image'=>upload_single_image('post', 'image')
             ])->tag()->attach($this->tag);
             return true;

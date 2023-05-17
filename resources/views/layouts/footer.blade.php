@@ -31,7 +31,6 @@
                             <li><a href="#">Wishlist</a></li>
                             <li><a href="#">My Account</a></li>
                             <li><a href="#">Order History</a></li>
-                            <li><a href="#">Returns</a></li>
                          </ul>
                       </div>
                    </div>
@@ -44,9 +43,8 @@
                             <li><a href="#">Our Story</a></li>
                             <li><a href="#">Careers</a></li>
                             <li><a href="#">Privacy Policy</a></li>
-                            <li><a href="#">Terms & Conditions</a></li>
-                            <li><a href="#">Latest News</a></li>
-                            <li><a href="#">Contact Us</a></li>
+                            <li><a href="/blog">Latest News</a></li>
+                            <li><a href="/contact">Contact Us</a></li>
                          </ul>
                       </div>
                    </div>
@@ -57,7 +55,7 @@
                       <div class="tp-footer-widget-content">
                          <div class="tp-footer-talk mb-20">
                             <span>Got Questions? Call us</span>
-                            <h4><a href="tel:670-413-90-762">+670 413 90 762</a></h4>
+                            <h4><a href="tel:09061841668">09061841668</a></h4>
                          </div>
                          <div class="tp-footer-contact">
                             <div class="tp-footer-contact-item d-flex align-items-start">
@@ -72,7 +70,7 @@
                                   </span>
                                </div>
                                <div class="tp-footer-contact-content">
-                                  <p><a href="mailto:shofy@support.com">shofy@support.com</a></p>
+                                  <p><a href="#">DexShops@support.com</a></p>
                                </div>
                             </div>
                             <div class="tp-footer-contact-item d-flex align-items-start">
@@ -85,7 +83,7 @@
                                   </span>
                                </div>
                                <div class="tp-footer-contact-content">
-                                  <p><a href="https://www.google.com/maps/place/Sleepy+Hollow+Rd,+Gouverneur,+NY+13642,+USA/@44.3304966,-75.4552367,17z/data=!3m1!4b1!4m6!3m5!1s0x4cccddac8972c5eb:0x56286024afff537a!8m2!3d44.3304928!4d-75.453048!16s%2Fg%2F1tdsjdj4" target="_blank">79 Sleepy Hollow St. <br> Jamaica, New York 1432</a></p>
+                                  <p><a href="#" target="_blank">79 Sleepy Hollow St. <br> </a></p>
                                </div>
                             </div>
                          </div>

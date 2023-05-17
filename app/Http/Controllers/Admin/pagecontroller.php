@@ -31,9 +31,9 @@ class pagecontroller extends Controller
         usort($categories, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
-        return view('admin.category.subcategories.index', compact('category', 'categories'));
+        return view('admin.subcategories.index', compact('category', 'categories'));
     }
-     
+
 
     public function storeSubcategory(Request $request)
     {
@@ -54,16 +54,16 @@ class pagecontroller extends Controller
         return redirect()->route('admin.home-subcategory')->with('success', 'Subcategory created successfully!');
     }
 
-    
+
 
     public function Updatesubcategory(Request $request, $id)
     {
         $subcategories = SubCategory::find($id);
         $subcategories->update([
-            $subcategories->name = $request->input('name'),      
-            $subcategories->slug  =  Str::slug($request->name),  
-            $subcategories->image =  update_image('category',$subcategories->image, 'image'),     
-            $subcategories->category_id = $request->input('category_id'),      
+            $subcategories->name = $request->input('name'),
+            $subcategories->slug  =  Str::slug($request->name),
+            $subcategories->image =  update_image('category',$subcategories->image, 'image'),
+            $subcategories->category_id = $request->input('category_id'),
         ]);
         $subcategories->save();
         return back()->with('info', 'Updated Successfully!');

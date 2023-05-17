@@ -32,8 +32,11 @@ class ProductRequest extends FormRequest
             'cover_image' => ['nullable', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
             'images.*' => ['required', 'image', 'mimes:jpeg,png,jpg,gif,svg'],
             'status' => ['nullable', 'string'],
-            'keyfeature'=>'nullable'|'required'|'string',
-            'specification'=>'nullable'|'required'|'string',
+            'is_featured' => ['nullable', 'string'],
+            'sold' => ['nullable', 'string'],
+            'badge' => ['nullable', 'string'],
+            'keyfeature'=>['nullable','required','string'],
+            'specification'=>['nullable','required','string'],
         ];
     }
 
@@ -69,6 +72,10 @@ class ProductRequest extends FormRequest
                 'name' => $this->name,
                 'body' => $this->body,
                 'discount'=>$this->discount,
+                'status'=>$this->status,
+                'is_featured'=>$this->is_featured,
+                'badge'=>$this->badge,
+                'sold'=>$this->sold,
                 'specification'=>$this->input('specification'),
                 'keyfeature'=>$this->input('keyfeature'),
                 'price' =>$this->price,
@@ -77,7 +84,6 @@ class ProductRequest extends FormRequest
                 'images'=>$images,
                 'SKU'=>Str::random(10),
                 'subcategory_id' => $categoryIds,
-                'status' => $this->status == 'on' ? 1 : 0,
             ]);
 
             return true;

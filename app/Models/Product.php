@@ -16,6 +16,11 @@ class Product extends Model
         'status',
         'body',
         'images',
+        'sold',
+        'is_featured',
+        'badge',
+        'keyfeature',
+        'specification',
         'SKU',
         'cover_image',
         'subcategory_id',
@@ -36,6 +41,32 @@ class Product extends Model
     public function wishlist()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    public function getRatingPercentage($stars)
+    {
+        $totalReviews = $this->total_reviews; // Assuming `$total_reviews` is the total number of reviews for the product
+        if ($totalReviews > 0) {
+            $ratingCount = $this->rating_count($stars); // Assuming `rating_count($stars)` returns the count of reviews with the given number of stars
+            $percentage = ($ratingCount / $totalReviews) * 100;
+            return round($percentage, 2); // Rounding to 2 decimal places
+        }
+        return 0;
+    }
+
+
+    public function averageRating()
+    {
+        $ratings = $this->ratings;
+
+        if ($ratings->isEmpty()) {
+            return 0;
+        }
+
+        $total = $ratings->sum('rating');
+        $count = $ratings->count();
+
+        return round($total / $count, 1);
     }
 
 

@@ -36,15 +36,11 @@ class CheckoutController extends Controller
 
         // $paystackPublicKey = env('PAYSTACK_PUBLIC_KEY');
 
-        $cart_item_count = CartItem::where('user_id', auth()->user()->id)->count();
-        $wishlist_item_count = Wishlist::where('user_id', auth()->user()->id)->count();
         $totalprice = $subtotal;
         // $shippingFee = (float) $request->input('shipping_fee');
         $total = $totalprice;
 
         return view('frontend.checkout', [
-            'cart_item_count' => $cart_item_count,
-            'wishlist_item_count' => $wishlist_item_count,
             'productItem' => $cartItems,
             'totalprice' => $totalprice,
             'total' => $total,

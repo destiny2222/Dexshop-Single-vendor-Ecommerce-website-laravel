@@ -21,7 +21,6 @@ class CategoryController extends Controller
     {
         //
         $category = Category::orderBy('id', 'desc')->get();
-        $subcategories = Subcategory::orderBy('id', 'desc')->get();
 
 
         $categories = [];
@@ -37,7 +36,7 @@ class CategoryController extends Controller
             $categories[] = $categor;
         }
 
-        
+
         usort($categories, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
@@ -60,14 +59,11 @@ class CategoryController extends Controller
     {
         //
         if ($request->createCategory()) {
-            Alert::success('success', 'Successfully added!');
-            return back();
-            // return redirect()->route('admin.testimonial.index')->with('success', 'Successfully added!');
+            return back()->with('success', 'Successfully added!');
         }else {
-            Alert::error('error', 'Oops something went worry');
-            return back();
+            return back()->with('error', 'Oops something went worry');
         }
-       
+
     }
 
     /**
@@ -91,7 +87,7 @@ class CategoryController extends Controller
             Log::error($exception->getMessage());
             return back();
         }
-       
+
     }
 
     /**
@@ -108,12 +104,10 @@ class CategoryController extends Controller
                 'slug'=>Str::slug($request->input('name')),
                 // 'image'=>update_image('category', $categories->image , 'image'),
             ]);
-            Alert::success('success', 'Successful Updated');
-            return back();
+            return back()->with('success', 'Successful Updated');
         }catch(\Exception $exception){
             Log::error($exception->getMessage());
-            Alert::error('error', 'Ooop  Something Went Wrong');
-            return back();
+            return back()->with('error', 'Ooop  Something Went Wrong');
         }
     }
 
@@ -126,12 +120,10 @@ class CategoryController extends Controller
         try{
             $category = Category::findOrFail($id);
             $category->delete();
-            Alert::success('success', 'Deleted Successfully');
-            return back();
+            return back()->with('success', 'Deleted Successfully');
         }catch(Exception  $exception){
             Log::error($exception->getMessage());
-            Alert::error('error', 'Ooop  Something Went Wrong');
-            return back();
+            return back()->with('error', 'Ooop  Something Went Wrong');
         }
     }
 }

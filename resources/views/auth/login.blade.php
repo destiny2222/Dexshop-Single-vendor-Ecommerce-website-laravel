@@ -6,26 +6,10 @@
 
     <main>
 
-        <!-- breadcrumb area start -->
-        <section class="breadcrumb__area include-bg text-center pt-95 pb-50">
-           <div class="container">
-              <div class="row">
-                 <div class="col-xxl-12">
-                    <div class="breadcrumb__content p-relative z-index-1">
-                       <h3 class="breadcrumb__title">My account</h3>
-                       <div class="breadcrumb__list">
-                          <span><a href="#">Home</a></span>
-                          <span>My account</span>
-                       </div>
-                    </div>
-                 </div>
-              </div>
-           </div>
-        </section>
-        <!-- breadcrumb area end -->
+
 
         <!-- login area start -->
-        <section class="tp-login-area pb-140 p-relative z-index-1 fix">
+        <section class="tp-login-area pb-140 pt-95 p-relative z-index-1 fix">
            <div class="tp-login-shape">
               <img class="tp-login-shape-1" src="assets/img/login/login-shape-1.png" alt="">
               <img class="tp-login-shape-2" src="assets/img/login/login-shape-2.png" alt="">
@@ -37,30 +21,11 @@
                  <div class="col-xl-6 col-lg-8">
                     <div class="tp-login-wrapper">
                        <div class="tp-login-top text-center mb-30">
-                          <h3 class="tp-login-title">Login to Shofy.</h3>
+                          <h3 class="tp-login-title">Login to DexShops.</h3>
                           <p>Don’t have an account? <span><a href="/register">Create a free account</a></span></p>
                        </div>
                        <div class="tp-login-option">
-                          <div class="tp-login-social mb-10 d-flex flex-wrap align-items-center justify-content-center">
-                             <div class="tp-login-option-item has-google">
-                                <a href="#">
-                                   <img src="assets/img/icon/login/google.svg" alt="">
-                                </a>
-                             </div>
-                             <div class="tp-login-option-item">
-                                <a href="#">
-                                   <img src="assets/img/icon/login/facebook.svg" alt="">
-                                </a>
-                             </div>
-                             <div class="tp-login-option-item">
-                                <a href="#">
-                                   <img class="apple" src="assets/img/icon/login/apple.svg" alt="">
-                                </a>
-                             </div>
-                          </div>
-                          <div class="tp-login-mail text-center mb-40">
-                             <p>or Sign in with <a href="#">Email</a></p>
-                          </div>
+
                           <form method="POST" action="{{ route('login') }}">
                              @csrf
                              <div class="tp-login-input-wrapper">
@@ -113,7 +78,7 @@
                              </div>
                              <div class="tp-login-suggetions d-sm-flex align-items-center justify-content-between mb-20">
                                 <div class="tp-login-remeber">
-                                 
+
                                    <input id="remeber"  type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                    <label class="form-check-label"  for="remember">
                                        {{ __('Remember Me') }}

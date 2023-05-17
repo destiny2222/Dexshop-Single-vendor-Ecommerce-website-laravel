@@ -46,7 +46,7 @@
                                  <tr class="ptoduct_data">
                                        <!-- img -->
                                        <td class="tp-cart-img">
-                                          <a href="product-details.html"> <img src="{{ asset('storage/product/'.$item->product->image) }}" alt=""></a>
+                                          <a href="product-details.html"> <img src="{{ asset('storage/product/'.$item->product->cover_image) }}" alt=""></a>
                                        </td>
                                        <!-- title -->
                                        <td class="tp-cart-title"><a href="product-details.html">{{ $item->product->name }}</a></td>
@@ -103,9 +103,9 @@
                 <div class="tp-cart-bottom">
                    <div class="row align-items-end">
                       <div class="col-xl-6 col-md-8">
-                         <div class="tp-cart-coupon">
-                            <form action="{{ route('coupon') }}" method="POST">
-                                @csrf
+                         {{-- <div class="tp-cart-coupon">
+                            <form action="" method="POST">
+
                                <div class="tp-cart-coupon-input-box">
                                   <label>Coupon Code:</label>
                                   <div class="tp-cart-coupon-input d-flex align-items-center">
@@ -119,11 +119,11 @@
                                     @enderror
                                </div>
                             </form>
-                         </div>
+                         </div> --}}
                       </div>
                       <div class="col-xl-6 col-md-4">
                          <div class="tp-cart-update text-md-end">
-                            <a href="#" class="tp-cart-update-btn">Continue  Shopping</a>
+                            <a href="/shop" class="tp-cart-update-btn">Continue  Shopping</a>
                          </div>
                       </div>
                    </div>
@@ -139,14 +139,14 @@
                       <h4 class="tp-cart-checkout-shipping-title">Shipping</h4>
 
                       <div class="tp-cart-checkout-shipping-option-wrapper">
-                         <div class="tp-cart-checkout-shipping-option">
+                         {{-- <div class="tp-cart-checkout-shipping-option">
                             <input id="flat_rate" type="radio" name="shipping">
                             <label for="flat_rate">Flat rate: <span>$20.00</span></label>
                          </div>
                          <div class="tp-cart-checkout-shipping-option">
                             <input id="local_pickup" type="radio" name="shipping">
                             <label for="local_pickup">Local pickup: <span> $25.00</span></label>
-                         </div>
+                         </div> --}}
                          <div class="tp-cart-checkout-shipping-option">
                             <input id="free_shipping" type="radio" name="shipping">
                             <label for="free_shipping">Free shipping</label>

@@ -1,12 +1,3 @@
-/*-----------------------------------------------------------------------------------
-
-    Template Name: Shofy - Multipurpose eCommerce HTML Template
-    Author: Theme_Pure
-    Support: basictheme400@gmail.com
-    Description: Shofy - Multipurpose eCommerce HTML Template
-    Version: 1.0
-
------------------------------------------------------------------------------------
 
 /************ TABLE OF CONTENTS ***************
 
@@ -244,7 +235,7 @@ li,
   --tp-green-dark: #115061;
   --tp-green-1: #31B757;
   --tp-khaki-1: #AB9774;
-  --tp-blue-1: #0989FF;
+  --tp-blue-1: #05B688;
   --tp-orange-1: #FF6736;
   --tp-heading-primary: #010F1C;
   --tp-heading-secondary: #021D35;
@@ -264,7 +255,7 @@ li,
   --tp-text-4: #7D7F82;
   --tp-text-5: #888A8C;
   --tp-text-6: #90969B;
-  --tp-theme-primary: #0989FF;
+  --tp-theme-primary: #05B688;
   --tp-theme-secondary: #821F40;
   --tp-theme-brown: #BD844C;
   --tp-theme-green: #678E61;
@@ -6146,7 +6137,7 @@ body .ui-tooltip {
   margin-left: 10px;
 }
 .tp-header-search-box {
-  width: 58%;
+  width: 80%;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   .tp-header-search-box {
@@ -6208,7 +6199,7 @@ body .ui-tooltip {
   right: 0;
 }
 .tp-header-search-btn button {
-  width: 60px;
+  width: 150px;
   height: 46px;
   line-height: 46px;
   background-color: var(--tp-theme-primary);
@@ -19552,7 +19543,7 @@ product all slider
   color: var(--tp-common-black);
 }
 .tp-collection-offer-wrapper p span {
-  color: #0989FF;
+  color: #05B688;
 }
 .tp-collection-countdown .tp-product-countdown {
   background: var(--tp-common-white);

@@ -4,6 +4,9 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\pagecontroller;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BlogCategoryController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->name('admin.')->group(function (){
@@ -14,6 +17,9 @@ Route::prefix('admin')->name('admin.')->group(function (){
     });
     Route::get('', [ HomeController::class,'home' ])->name('home');
     Route::resource('/category', CategoryController::class);
+    Route::resource('/categories', BlogCategoryController::class);
+    Route::resource('/blog', BlogController::class);
+    Route::resource('/tags', TagController::class);
     Route::resource('/product', ProductController::class);
     Route::get('subcatagory', [pagecontroller::class, 'index'])->name('home-subcategory');
     Route::post('subcatagory', [pagecontroller::class, 'storeSubcategory'])->name('store-subcategory');

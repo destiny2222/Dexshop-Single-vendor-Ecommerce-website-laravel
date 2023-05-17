@@ -20,15 +20,15 @@
         </div>
     </div>
     <!-- end page title -->
-    
+
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
 
-                    <h4 class="card-title btn btn-primary waves-effect waves-light" 
+                    <h4 class="card-title btn btn-primary waves-effect waves-light"
                     data-bs-toggle="modal" data-bs-target="#smallModal">Create New Category</h4>
-                    <a href="{{  route('admin.home-subcategory')  }}" class="card-title btn btn-primary waves-effect waves-light" >Create New SubCategory</a>
+                    
 
                     <div class="table-responsive">
                         <table class="table table-editable table-nowrap align-middle table-edits">
@@ -46,12 +46,12 @@
                                 <tr>
                                   <td><strong>{{ $loop->index + 1 }}</strong></td>
                                   <td>
-                                    
+
                                     {{  $tagger['date'] }}
                                   </td>
                                   <td>{{  $tagger['type'] }}</td>
                                   <td><strong>{{  $tagger['name'] }}</strong></td>
-                                 
+
                                   <td>
                                     <div class="d-flex align-items-center">
                                       <a class=" btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
@@ -61,7 +61,7 @@
                                       <a class="" href="javascript:void(0);">
                                         <form action="{{ route('admin.category.destroy', $tagger['id']) }}" method="POST">
                                           @method('delete')
-                                          @csrf 
+                                          @csrf
                                           <button class="ms-2 btn btn-primary waves-effect waves-light" onclick="return confirm('Are you sure?');"><i class="fa fa-trash me-1"></i>Delete</button>
                                         </form>
                                       </a>
@@ -69,7 +69,7 @@
                                 </td>
                                 </tr>
                                 @include('admin.category.edit')
-                            @endforeach 
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

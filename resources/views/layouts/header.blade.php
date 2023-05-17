@@ -13,19 +13,10 @@
                 </div>
                 <div class="col-xl-6 col-lg-7 d-none d-lg-block">
                    <div class="tp-header-search pl-70">
-                      <form action="#">
+                      <form action="{{ route('search-product')  }}" method="GET">
                          <div class="tp-header-search-wrapper d-flex align-items-center">
                             <div class="tp-header-search-box">
-                               <input type="text" placeholder="Search for Products...">
-                            </div>
-                            <div class="tp-header-search-category">
-                               <select>
-                                  <option>Select Category</option>
-                                  <option>Mobile</option>
-                                  <option>Digital Watch</option>
-                                  <option>Computer</option>
-                                  <option>Watch</option>
-                               </select>
+                               <input type="text" name="query" placeholder="Search for Products...">
                             </div>
                             <div class="tp-header-search-btn">
                                <button type="submit">
@@ -82,7 +73,7 @@
                                   <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                   <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                </svg>
-                               <span class="tp-header-action-badge">{{  $wishlist_item_count }}</span>
+                               <span class="tp-header-action-badge">{{  getWishlistItemCount() }}</span>
                             </a>
                          </div>
                          <div class="tp-header-action-item">
@@ -93,7 +84,7 @@
                                   <path d="M7.70365 10.1018H7.74942" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                   <path d="M13.5343 10.1018H13.5801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                </svg>
-                               <span class="tp-header-action-badge">{{  $cart_item_count }}</span>
+                               <span class="tp-header-action-badge">{{ getCartItemCount() }}</span>
                             </button>
                          </div>
                          <div class="tp-header-action-item d-lg-none">
@@ -130,7 +121,7 @@
                          </button>
                          <nav class="tp-category-menu-content">
                           <ul>
-                            @foreach ($categories as $category)
+                            {{-- @foreach ($categories as $category)
                               <li>
                                  <a href="{{ route('product-details', $category->slug) }}">
                                     <span>
@@ -139,9 +130,10 @@
                                        </svg>
                                     </span>
                                     {{  $category->name }}</a>
-                              </li>
-                              {{-- <li class="has-dropdown">
-                                <a href="shop.html" class="has-mega-menu">
+                              </li> --}}
+                              @foreach(getCategoryTree() as $category)
+                              <li class="has-dropdown">
+                                <a href="javascript:void()" class="has-mega-menu">
                                    <span>
                                       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                          <path d="M2.6856 4.54975C2.6856 3.52014 3.51984 2.6859 4.54945 2.68508H5.3977C5.88984 2.68508 6.36136 2.48971 6.71089 2.14348L7.30359 1.54995C8.02984 0.819578 9.21031 0.816281 9.94068 1.54253L9.9415 1.54336L9.94892 1.54995L10.5425 2.14348C10.892 2.49053 11.3635 2.68508 11.8556 2.68508H12.7031C13.7327 2.68508 14.5677 3.51932 14.5677 4.54975V5.39636C14.5677 5.88849 14.7623 6.36084 15.1093 6.71037L15.7029 7.3039C16.4332 8.03015 16.4374 9.21061 15.7111 9.94098L15.7103 9.94181L15.7029 9.94923L15.1093 10.5428C14.7623 10.8915 14.5677 11.363 14.5677 11.8551V12.7034C14.5677 13.733 13.7335 14.5672 12.7039 14.5672H12.7031H11.854C11.3619 14.5672 10.8895 14.7626 10.5408 15.1096L9.94727 15.7024C9.22185 16.4327 8.04221 16.4368 7.31183 15.7122C7.31101 15.7114 7.31019 15.7106 7.30936 15.7098L7.30194 15.7024L6.70924 15.1096C6.36054 14.7626 5.88819 14.568 5.39605 14.5672H4.54945C3.51984 14.5672 2.6856 13.733 2.6856 12.7034V11.8535C2.6856 11.3613 2.49023 10.8898 2.14318 10.5411L1.55047 9.94758C0.820097 9.22215 0.815976 8.04251 1.5414 7.31214C1.5414 7.31132 1.54223 7.31049 1.54305 7.30967L1.55047 7.30225L2.14318 6.70872C2.49023 6.35919 2.6856 5.88767 2.6856 5.39471V4.54975" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -150,19 +142,17 @@
                                          <path d="M6.56053 6.56446H6.56795" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                       </svg>
                                    </span>
+                                   {{ $category->name }}
                                 </a>
 
-                                <ul class="mega-menu tp-submenu">
-                                    <li>
-                                        <a href="shop.html" class="mega-menu-title"> </a>
-                                        <ul>
-                                            <li>
-                                            <a href="shop.html"><img src="assets/img/header/menu/menu-1.jpg" alt=""></a>
-                                            </li>
-                                        </ul>
-                                    </li>
+                                <ul class="tp-submenu">
+                                    @foreach($category->subcategories as $subcategory)
+                                        <li>
+                                            <a href="{{ route('product-details',$subcategory->slug) }}" class="mega-menu-title">{{ $subcategory->name }} </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
-                             </li> --}}
+                             </li>
                             @endforeach
 
                             <!--
@@ -180,13 +170,13 @@
                                <li class=" has-mega-menu">
                                   <a href="/">Home</a>
                                </li>
-                               <li  class="">
+                               {{-- <li  class="">
                                   <a href="/shop">Shop</a>
 
-                              </li>
+                              </li> --}}
                                <li class="">
 
-                                  <a href="#">Products</a>
+                                  <a href="/shop">Products</a>
 
                                </li>
                                <li class="">
@@ -210,7 +200,7 @@
                          </div>
                          <div class="tp-header-contact-content">
                             <h5>Hotline:</h5>
-                            <p><a href="tel:402-763-282-46">+(402) 763 282 46</a></p>
+                            <p><a href="tel:09061841668">09061841668</a></p>
                          </div>
                       </div>
                    </div>
@@ -239,12 +229,12 @@
                          <li class="">
                             <a href="/">Home</a>
                          </li>
-                         <li  class="">
+                         {{-- <li  class="">
                             <a href="/shop">Shop</a>
-                        </li>
+                        </li> --}}
                          <li class=" ">
 
-                            <a href="#">Products</a>
+                            <a href="/shop">Products</a>
 
                          </li>
 
@@ -265,7 +255,7 @@
                             <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                          </svg>
-                         <span class="tp-header-action-badge">{{  $wishlist_item_count }}</span>
+                         <span class="tp-header-action-badge">{{  getWishlistItemCount() }}</span>
                       </a>
                    </div>
                    <div class="tp-header-action-item">
@@ -276,7 +266,7 @@
                             <path d="M7.70365 10.1018H7.74942" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                             <path d="M13.5343 10.1018H13.5801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                          </svg>
-                         <span class="tp-header-action-badge">{{  $cart_item_count }}</span>
+                         <span class="tp-header-action-badge">{{ getCartItemCount() }}</span>
                       </button>
                    </div>
                    <div class="tp-header-action-item d-lg-none">

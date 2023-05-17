@@ -37,9 +37,9 @@
                         <div class="col-lg-12 mb-3">
                             <label class="form-label">Category</label>
                             <select class="form-control  @error('subcategory_id') is-invalid @enderror" name="subcategory_id">
-                                {{-- @foreach ($subcategory as $sub) --}}
-                                   <option value="{{ $sub->id }}" {{ old('subcategory_id') == $sub->id ? 'selected' : '' }}>{{ $sub->name }}</option>
-                                {{-- @endforeach --}}
+                                @foreach ($product as $sub)
+                                   <option value="{{ $sub->subCategory->id }}" {{ old('subcategory_id') == $sub->subCategory->id ? 'selected' : '' }}>{{ $sub->subCategory->name }}</option>
+                                @endforeach
                             </select>
                             @error('subcategory_id')
                                 <span class="invalid-feedback" role="alert">
@@ -47,30 +47,69 @@
                                 </span>
                             @enderror
                         </div>
+                        <div class="col-lg-4 mb-3">
+                            <label class="form-label">Is Featured</label>
+                            <div class="col-lg-12">
+                                <select name="is_featured" class="form-control  ">
+                                    <option>Select</option>
+                                    <option value="0" {{ $item->is_featured == 0 ? 'selected' : '' }}>No</option>
+                                    <option value="1" {{ $item->is_featured == 1 ? 'selected' : '' }}>Yes</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <label class="form-label">Badges (option)</label>
+                            <div class="col-lg-12">
+                                <select name="badge" class="form-control  ">
+                                    <option value="new" {{ $item->badge == 1 ? 'selected' : '' }}>New</option>
+                                    <option value="sale" {{ $item->badge == 2 ? 'selected' : '' }}>Sale</option>
+                                </select>
+                            </div>
+                            @error('badge')
+                                <span class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="col-lg-4 mb-3">
+                            <label class="form-label">Status (option)</label>
+                            <div class="col-lg-12">
+                                <select name="status" class="form-control  ">
+                                    <option value="instock" {{ $item->status == 1 ? 'selected' : '' }}>In Stock</option>
+                                    <option value="outstock" {{ $item->status == 2 ? 'selected' : '' }}>Out Stock</option>
+                                </select>
+                            </div>
+                            @error('status')
+                                <span class="invalid-feedback" role="alert">
+                                    {{ $message }}
+                                </span>
+                            @enderror
+                        </div>
+
                         <div class="col-12 mb-3">
                             <div class="input-group">
-                                <input type="file" value="{{ $item->image }}" name="image" class="form-control  @error('image') is-invalid @enderror" id="inputGroupFile01" />
-                                @error('image')
+                                <input type="file" value="{{ $item->cover_image }}" name="image" class="form-control  @error('cover_image') is-invalid @enderror" id="inputGroupFile01" />
+                                @error('cover_image')
                                     <span class="invalid-feedback" role="alert">{{  $message  }}</span>
                                 @enderror
                             </div>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="basic-default-message">{{ __(' Message ') }}</label>
-                            <textarea  id="summary" name="body" class="form-control">{{ $item->body }}</textarea>
+                            <textarea  id="body" name="body" class="form-control">{!! html_entity_decode($item->body) !!}</textarea>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="basic-default-message">{{ __(' Specifications ') }}</label>
-                            <textarea  id="summary" name="editor" class="form-control">{{ $item->specification }}</textarea>
+                            <textarea  id="editor" name="specification" class="form-control">{!! html_entity_decode($item->specification) !!}</textarea>
                         </div>
                         <div class="col-12 mb-3">
                             <label class="form-label" for="basic-default-message">{{ __(' Keyfeatures ') }}</label>
-                            <textarea  id="summary" name="editors" class="form-control">{{ $item->keyfeature }}</textarea>
+                            <textarea  id="editors" name="keyfeature" class="form-control">{!! html_entity_decode($item->keyfeature) !!}</textarea>
                         </div>
                     </div>
                     <div class="row g-2">
                         <div class="col mb-0 text-center">
-                            <input type="submit" class="btn btn-primary btn-sm" value="Save Change">
+                            <input type="submit" class="btn btn-primary btn-sm w-100" value="Save Change">
                         </div>
                     </div>
                 </form>

@@ -12,8 +12,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
     Route::get('',[ HomeController::class, 'index'])->name('dashboard-page');
     Route::put('/profile_update/{id}', [HomeController::class, 'update_profile'])->name('update-profile-page');
     Route::put('change-password', [HomeController::class, 'validatepassword'])->name('change-password-page');
+    Route::delete('destory/{id}', [HomeController::class, 'destory'])->name('delete-user');
 
-    
 
     Route::get('optimize',function (){
         \Illuminate\Support\Facades\Artisan::call('optimize');

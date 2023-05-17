@@ -10,7 +10,7 @@ class Blog extends Model
 {
     use HasFactory;
 
-    protected $Fillable = [
+    protected $fillable = [
         'title',
         'author',
         'category_id',
@@ -27,5 +27,14 @@ class Blog extends Model
     public function getSlugAttribute(): string
     {
         return Str::slug($this->title);
+    }
+
+    public function tag(){
+        return $this->belongsToMany(Tag::class, 'blog_tag', 'id_blog', 'id_tag');
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(BlogCategory::class, 'category_id');
     }
 }

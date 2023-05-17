@@ -13,6 +13,10 @@ Route::get('/shop', [PageController::class, 'shop'])->name('shop-page');
 Route::get('/blog', [PageController::class, 'blog'])->name('blog-page');
 Route::get('/contact', [PageController::class, 'contact'])->name('contact-page');
 Route::post('/contactform', [PageController::class, 'contactform'])->name('contact-store');
+Route::get('/blog-single/{blog}', [PageController::class, 'blogdetails'])->name('blog-details');
+Route::get('/searcher', [PageController::class, 'search'])->name('search-blog');
+Route::get('/search', [PageController::class, 'searchProducts'])->name('search-product');
+Route::get('/category/{slug}',[PageController::class, 'showCategory'])->name('category.show');
 //Rating and Sending Feedback
 Route::post('rating', [PageController::class, 'storeRate'])->name('rating-store');
 // PRODUCT DETAILS

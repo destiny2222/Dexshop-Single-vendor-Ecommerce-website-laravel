@@ -1,4 +1,5 @@
-      <!-- header area start -->
+
+    <!-- header area start -->
       <header>
         <div class="tp-header-area tp-header-style-primary tp-header-height">
            <!-- header top start  -->
@@ -24,7 +25,7 @@
                                       <path d="M9.84082 1.18318C12.5534 1.48434 14.6952 3.62393 15 6.3358" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                       <path d="M9.84082 3.77927C11.1378 4.03207 12.1511 5.04544 12.4039 6.34239" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                    </svg>
-                                </span> +(402) 763 282 46
+                                </span> 08079007308
                              </a>
                           </div>
                        </div>
@@ -63,7 +64,7 @@
                                    </li>
                                 </ul>
                              </div>
-                             <div class="tp-header-top-menu-item tp-header-setting">
+                             <!-- <div class="tp-header-top-menu-item tp-header-setting">
                                 <span class="tp-header-setting-toggle" id="tp-header-setting-toggle">Setting</span>
                                 <ul>
                                    <li>
@@ -79,7 +80,7 @@
                                       <a href="login.html">Logout</a>
                                    </li>
                                 </ul>
-                             </div>
+                             </div> -->
                           </div>
                        </div>
                     </div>
@@ -106,12 +107,12 @@
                                    <li class="">
                                       <a href="/">Home</a>
                                    </li>
-                                   <li  class="">
+                                   {{-- <li  class="">
                                       <a href="/shop">Shop</a>
-                                  </li>
+                                  </li> --}}
                                    <li class=" ">
 
-                                      <a href="#">Products</a>
+                                      <a href="/shop">Products</a>
 
                                    </li>
                                    <li class="">
@@ -124,16 +125,18 @@
                           <div class="tp-category-menu-wrapper d-none">
                              <nav class="tp-category-menu-content">
                                 <ul>
-                                    @foreach ($categories as $category)
+                                    @foreach(getCategoryTree() as $category)
+                                      @foreach($category->subcategories as $subcategory)
                                         <li>
-                                            <a href="{{ route('product-details', $category->slug) }}">
+                                            <a href="{{ route('product-details', $subcategory->slug) }}">
                                             <span>
                                                 <svg width="16" height="17" viewBox="0 0 16 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M5.90532 14.8316V12.5719C5.9053 11.9971 6.37388 11.5301 6.95443 11.5262H9.08101C9.66434 11.5262 10.1372 11.9944 10.1372 12.5719V12.5719V14.8386C10.1371 15.3266 10.5305 15.7254 11.0233 15.7368H12.441C13.8543 15.7368 15 14.6026 15 13.2035V13.2035V6.77525C14.9925 6.22482 14.7314 5.70794 14.2911 5.37171L9.44253 1.50496C8.59311 0.83168 7.38562 0.83168 6.5362 1.50496L1.70886 5.37873C1.26693 5.7136 1.00544 6.23133 1 6.78227V13.2035C1 14.6026 2.1457 15.7368 3.55899 15.7368H4.97671C5.48173 15.7368 5.89114 15.3315 5.89114 14.8316V14.8316" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                                 </svg>
                                             </span>
-                                            {{  $category->name }}</a>
+                                            {{  $subcategory->name }}</a>
                                         </li>
+                                       @endforeach
                                     @endforeach
 
                                  </ul>
@@ -143,8 +146,8 @@
                        <div class="col-xl-5 col-lg-7 col-md-7 col-sm-8 col-6">
                           <div class="tp-header-bottom-right d-flex align-items-center justify-content-end pl-30">
                              <div class="tp-header-search-2 d-none d-sm-block">
-                                <form action="#">
-                                   <input type="text" placeholder="Search for Products...">
+                                <form action="{{ route('search-product') }}" method="GET">
+                                   <input type="text" name="query" placeholder="Search for Products...">
                                    <button type="submit">
                                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                                          <path d="M9 17C13.4183 17 17 13.4183 17 9C17 4.58172 13.4183 1 9 1C4.58172 1 1 4.58172 1 9C1 13.4183 4.58172 17 9 17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -161,7 +164,7 @@
                                          <path fill-rule="evenodd" clip-rule="evenodd" d="M11.239 18.8538C13.4096 17.5179 15.4289 15.9456 17.2607 14.1652C18.5486 12.8829 19.529 11.3198 20.1269 9.59539C21.2029 6.25031 19.9461 2.42083 16.4289 1.28752C14.5804 0.692435 12.5616 1.03255 11.0039 2.20148C9.44567 1.03398 7.42754 0.693978 5.57894 1.28752C2.06175 2.42083 0.795919 6.25031 1.87187 9.59539C2.46978 11.3198 3.45021 12.8829 4.73806 14.1652C6.56988 15.9456 8.58917 17.5179 10.7598 18.8538L10.9949 19L11.239 18.8538Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                          <path d="M7.26062 5.05302C6.19531 5.39332 5.43839 6.34973 5.3438 7.47501" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                       </svg>
-                                      <span class="tp-header-action-badge">{{  $wishlist_item_count }}</span>
+                                      <span class="tp-header-action-badge">{{  getWishlistItemCount() }}</span>
                                    </a>
                                 </div>
                                 <div class="tp-header-action-item">
@@ -172,7 +175,7 @@
                                          <path d="M7.70365 10.1018H7.74942" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                          <path d="M13.5343 10.1018H13.5801" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                                       </svg>
-                                      <span class="tp-header-action-badge">{{  $cart_item_count }}</span>
+                                      <span class="tp-header-action-badge">{{ getCartItemCount() }}</span>
                                    </button>
                                 </div>
                                 <div class="tp-header-action-item tp-header-hamburger mr-20 d-xl-none">

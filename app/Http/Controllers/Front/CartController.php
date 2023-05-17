@@ -22,10 +22,6 @@ class CartController extends Controller
 
     public function carthome(){
 
-        $user_id = Auth::user()->id;
-
-        $cart_item_count = CartItem::where('user_id', $user_id)->count();
-        $wishlist_item_count = Wishlist::where('user_id', $user_id)->count();
 
         $cart = CartItem::all();
         $totalprice = 0;
@@ -35,7 +31,7 @@ class CartController extends Controller
 
         // dd($totalprice);
 
-        return view('frontend.cart', compact('cart_item_count', 'wishlist_item_count', 'cart', 'totalprice'));
+        return view('frontend.cart', compact( 'cart', 'totalprice'));
     }
 
     public function store(Request $request, $id)
@@ -51,9 +47,10 @@ class CartController extends Controller
                 'user_id' => auth()->id(),
                 'product_id' => $product->id,
                 'quantity' => $request->quantity,
-                'price' => $product->price
+                'price' => $product->price,
             ]);
             $cartItem->save();
+
         }
 
         return redirect(route('cart-home'))->with('success', 'Product added to cart successfully!');

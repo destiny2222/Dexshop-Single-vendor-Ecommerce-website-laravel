@@ -38,8 +38,8 @@
                          </svg>
                       </span>
                       <span><a href="/">Home</a></span>
-                      <span><a href="#">Electronics</a></span>
-                      <span><a href="#">{{ $product->subCategory->name }}</a></span>
+                      <span><a href="javascript:void()">{{ $product->subCategory->category->name }}</a></span>
+                      <span><a href="javascript:void()">{{ $product->subCategory->name }}</a></span>
                       <span>{{  $product->name }}</span>
                    </div>
                 </div>
@@ -99,22 +99,28 @@
                       <!-- inventory details -->
                       <div class="tp-product-details-inventory d-flex align-items-center mb-10">
                          <div class="tp-product-details-stock mb-10">
-                            <span>In Stock</span>
+                            @if ($product->status == 'instock')
+                                <span>In Stock</span>
+                            @elseif ($product->status == 'outstock')
+                                <span>Out of Stock</span>
+                            @endif
                          </div>
                          <div class="tp-product-details-rating-wrapper d-flex align-items-center mb-10">
                             <div class="tp-product-details-rating">
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
-                               <span><i class="fa-solid fa-star"></i></span>
+                                @for ($i = 0; $i < 5; $i++)
+                                    @if ($i < $product->rating)
+                                        <span><i class="fa-solid fa-star"></i></span>
+                                    @else
+                                        <span><i class="far fa-star"></i></span>
+                                    @endif
+                                @endfor
                             </div>
                             <div class="tp-product-details-reviews">
-                               <span>(36 Reviews)</span>
+                               <span>({{  $product->rating }} Reviews)</span>
                             </div>
                          </div>
                       </div>
-                      <p>{{  $product->body }} <span>See more</span></p>
+                      <p>{!! html_entity_decode(\Str::limit($product->body,100)) !!}</p>
 
                       <!-- price -->
                       <div class="tp-product-details-price-wrapper mb-20">
@@ -150,33 +156,34 @@
 
                       <!-- actions -->
                       <div class="tp-product-details-action-wrapper">
-                         <h3 class="tp-product-details-action-title">Quantity</h3>
-                         <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
+                        <h3 class="tp-product-details-action-title">Quantity</h3>
+                        <div class="tp-product-details-action-item-wrapper d-flex align-items-center">
                             <div class="tp-product-details-quantity">
-                               <div class="tp-product-quantity mb-15 mr-15">
-                                  <span class="tp-cart-minus">
-                                     <svg width="11" height="2" viewBox="0 0 11 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 1H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                     </svg>
-                                  </span>
-                                  <input class="tp-cart-input" type="text" value="1">
-                                  <span class="tp-cart-plus">
-                                     <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1 6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M5.5 10.5V1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                     </svg>
-                                  </span>
-                               </div>
+                                <div class="tp-product-quantity mb-15 mr-15">
+                                    <span class="tp-cart-minus" onclick="decrementQuantity()">
+                                        <svg width="11" height="2" viewBox="0 0 11 2" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 1H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                    <input class="tp-cart-input" type="text" id="quantityInput" value="1">
+                                    <span class="tp-cart-plus" onclick="incrementQuantity()">
+                                        <svg width="11" height="12" viewBox="0 0 11 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path d="M1 6H10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            <path d="M5.5 10.5V1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </span>
+                                </div>
                             </div>
                             <div class="tp-product-details-add-to-cart mb-15 w-100">
-                               <form action="{{ route('cart.store', $product->id) }}" method="post">
+                                <form action="{{ route('cart.store', $product->id) }}" method="post">
                                     @csrf
-                                   <button type="submit" class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
-                              </form>
+                                    <input type="hidden" name="quantity" id="hiddenQuantity" value="1">
+                                    <button type="submit" class="tp-product-details-add-to-cart-btn w-100">Add To Cart</button>
+                                </form>
                             </div>
-                         </div>
-                         <button class="tp-product-details-buy-now-btn w-100">Buy Now</button>
-                      </div>
+                        </div>
+                        <button class="tp-product-details-buy-now-btn w-100"><a href="/checkout">Buy Now</a></button>
+                    </div>
                       <div class="tp-product-details-action-sm">
                          <form action="{{ route('wishlist.add') }}" method="post">
                             @csrf
@@ -200,10 +207,7 @@
                             <span>Category:  </span>
                             <p>{{ $product->subCategory->name }}</p>
                          </div>
-                         <div class="tp-product-details-query-item d-flex align-items-center">
-                            <span>Tag: </span>
-                            <p>Android</p>
-                         </div>
+
                       </div>
                       <div class="tp-product-details-social">
                          <span>Share: </span>
@@ -236,7 +240,7 @@
                          <div class="nav nav-tabs justify-content-center p-relative tp-product-tab" id="navPresentationTab" role="tablist">
                            <button class="nav-link" id="nav-description-tab" data-bs-toggle="tab" data-bs-target="#nav-description" type="button" role="tab" aria-controls="nav-description" aria-selected="true">Description</button>
                            <button class="nav-link active" id="nav-addInfo-tab" data-bs-toggle="tab" data-bs-target="#nav-addInfo" type="button" role="tab" aria-controls="nav-addInfo" aria-selected="false">Additional information</button>
-                           <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews (2)</button>
+                           <button class="nav-link" id="nav-review-tab" data-bs-toggle="tab" data-bs-target="#nav-review" type="button" role="tab" aria-controls="nav-review" aria-selected="false">Reviews </button>
 
                            <span id="productTabMarker" class="tp-product-details-tab-line"></span>
                          </div>
@@ -249,7 +253,7 @@
                                      <div class="tp-product-details-desc-item pb-105">
                                         <div class="row">
                                            <div class="col-lg-12">
-                                              {{ $product->body  }}
+                                            {!! html_entity_decode($product->body)  !!}
                                            </div>
                                         </div>
                                      </div>
@@ -262,10 +266,10 @@
                             <div class="tp-product-details-additional-info ">
                                <div class="row justify-content-center">
                                   <div class="col-12 col-xl-6">
-                                     {{ $product->specifications  }}
+                                     {!! html_entity_decode($product->specifications)   !!}
                                   </div>
                                   <div class="col-12 col-xl-6">
-                                     {{ $product->keyfeature  }}
+                                     {!! html_entity_decode( $product->keyfeature)  !!}
                                   </div>
                                </div>
                             </div>
@@ -276,78 +280,42 @@
                                   <div class="col-lg-6">
                                      <div class="tp-product-details-review-statics">
                                         <!-- number -->
-                                        {{-- <div class="tp-product-details-review-number d-inline-block mb-50">
-                                           <h3 class="tp-product-details-review-number-title">Customer reviews</h3>
-                                           <div class="tp-product-details-review-summery d-flex align-items-center">
-                                              <div class="tp-product-details-review-summery-value">
-                                                 <span>4.5</span>
-                                              </div>
-                                              <div class="tp-product-details-review-summery-rating d-flex align-items-center">
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <span><i class="fa-solid fa-star"></i></span>
-                                                 <p>(36 Reviews)</p>
-                                              </div>
-                                           </div>
-                                           <div class="tp-product-details-review-rating-list">
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>5 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="82%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>82%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
+                                        <div class="tp-product-details-review-number d-inline-block mb-50">
+                                            <h3 class="tp-product-details-review-number-title">Customer reviews</h3>
+                                            <div class="tp-product-details-review-summery d-flex align-items-center">
+                                                <div class="tp-product-details-review-summery-value">
+                                                    <span>{{ $product->averageRating() }}</span>
+                                                </div>
+                                                <div class="tp-product-details-review-summery-rating d-flex align-items-center">
+                                                    @for ($i = 0; $i < 5; $i++)
+                                                        @if ($i < $product->rating)
+                                                            <span><i class="fa-solid fa-star"></i></span>
+                                                        @else
+                                                            <span><i class="far fa-star"></i></span>
+                                                        @endif
+                                                    @endfor
+                                                    <p>({{ $product->rating }} Reviews)</p>
+                                                </div>
+                                            </div>
+                                            <div class="tp-product-details-review-rating-list">
+                                                <!-- single item -->
+                                                @for ($j = 5; $j >= 1; $j--)
+                                                    <div class="tp-product-details-review-rating-item d-flex align-items-center">
+                                                        <span>{{ $j }} Star</span>
+                                                        <div class="tp-product-details-review-rating-bar">
+                                                            @php
+                                                                $ratingPercentage = ($product->getRatingPercentage($j));
+                                                            @endphp
+                                                            <span class="tp-product-details-review-rating-bar-inner" data-width="{{ $ratingPercentage }}"></span>
+                                                        </div>
+                                                        <div class="tp-product-details-review-rating-percent">
+                                                            <span>{{ $ratingPercentage }}%</span>
+                                                        </div>
+                                                    </div> <!-- end single item -->
+                                                @endfor
+                                            </div>
+                                        </div>
 
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>4 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="30%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>30%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
-
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>3 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="15%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>15%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
-
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>2 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="6%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>6%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
-
-                                              <!-- single item -->
-                                              <div class="tp-product-details-review-rating-item d-flex align-items-center">
-                                                 <span>1 Start</span>
-                                                 <div class="tp-product-details-review-rating-bar">
-                                                    <span class="tp-product-details-review-rating-bar-inner" data-width="10%"></span>
-                                                 </div>
-                                                 <div class="tp-product-details-review-rating-percent">
-                                                    <span>10%</span>
-                                                 </div>
-                                              </div> <!-- end single item -->
-                                           </div>
-                                        </div> --}}
 
                                         <!-- reviews -->
                                         <div class="tp-product-details-review-list pr-110">
@@ -446,4 +414,28 @@
 
 
  </main>
+
+ <script>
+    function incrementQuantity() {
+        var quantityInput = document.getElementById('quantityInput');
+        var hiddenQuantity = document.getElementById('hiddenQuantity');
+        var quantity = parseInt(quantityInput.value);
+
+        quantity += 1;
+        quantityInput.value = quantity;
+        hiddenQuantity.value = quantity;
+    }
+
+    function decrementQuantity() {
+        var quantityInput = document.getElementById('quantityInput');
+        var hiddenQuantity = document.getElementById('hiddenQuantity');
+        var quantity = parseInt(quantityInput.value);
+
+        if (quantity > 1) {
+            quantity -= 1;
+            quantityInput.value = quantity;
+            hiddenQuantity.value = quantity;
+        }
+    }
+</script>
 @endsection

@@ -13,15 +13,13 @@ class CartItem extends Model
         'quantity',
         'product_id',
         'price',
-        'order_id'
+        // 'order_id'
     ];
 
     public function order()
     {
         return $this->belongsTo(Order::class);
     }
-
-
 
     public function user()
     {

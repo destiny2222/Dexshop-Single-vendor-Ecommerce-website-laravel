@@ -17,16 +17,9 @@ class WishlistController extends Controller
     }
 
     public function index(){
-        if (!Auth::check()) {
-            $user_id = Auth::user();
-    }else{
-        $user_id = Auth::user()->id;
-    }
 
-        $cart_item_count = CartItem::where('product_id', $user_id)->count();
-        $wishlist_item_count = Wishlist::where('user_id', $user_id)->count();
         $wishlist = Wishlist::orderBy('id', 'desc')->get();
-        return view('frontend.wishlist', compact('cart_item_count', 'wishlist_item_count', 'wishlist'));
+        return view('frontend.wishlist', compact( 'wishlist'));
     }
         public function addProduct(Request $request)
     {

@@ -55,49 +55,29 @@
                     </ul>
                 </li>
 
-                <li class="menu-title">Apps</li>
+                <li class="menu-title">Pages</li>
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="uil-store"></i>
-                        <span>Product</span>
+                        <i class="uil-window-section"></i>
+                        <span>Product Page</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="{{  route('admin.product.index') }}">Products</a></li>
-                        <li><a href="{{  route('admin.category.index')  }}">Category</a></li>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a  href="{{  route('admin.category.index')  }}">Category</a></li>
+                        <li><a  href="{{  route('admin.home-subcategory')   }}">SubCategory</a></li>
+                        <li><a  href="{{  route('admin.product.index') }}">Products</a></li>
                     </ul>
                 </li>
-                
-               
                 <li>
-                    <a href="" class=" waves-effect">
-                        <i class="uil-comments-alt"></i>
-                        <span>Partner</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="" class=" waves-effect">
-                        <i class="uil-comments-alt"></i>
-                        <span>Route</span>
-                    </a>
-                </li>
-
-
-                {{-- <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
-                        <i class="uil-file-alt"></i>
-                        <span>Utility</span>
+                        <i class="uil-window-section"></i>
+                        <span>Post Page</span>
                     </a>
-                    <ul class="sub-menu" aria-expanded="false">
-                        <li><a href="pages-starter.html">Starter Page</a></li>
-                        <li><a href="pages-maintenance.html">Maintenance</a></li>
-                        <li><a href="pages-comingsoon.html">Coming Soon</a></li>
-                        <li><a href="pages-timeline.html">Timeline</a></li>
-                        <li><a href="pages-faqs.html">FAQs</a></li>
-                        <li><a href="pages-pricing.html">Pricing</a></li>
-                        <li><a href="pages-404.html">Error 404</a></li>
-                        <li><a href="pages-500.html">Error 500</a></li>
+                    <ul class="sub-menu" aria-expanded="true">
+                        <li><a  href="{{ route('admin.tags.index') }}">Tag</a></li>
+                        <li><a  href="{{ route('admin.categories.index') }}">Category</a></li>
+                        <li><a  href="{{  route('admin.blog.index') }}">Blog</a></li>
                     </ul>
-                </li> --}}
+                </li>
 
 
 
