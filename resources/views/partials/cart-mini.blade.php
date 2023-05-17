@@ -45,11 +45,11 @@
                             <div class="cartmini__widget-item">
                                 <div class="cartmini__thumb">
                                     <a href="{{  route('product-single', $carted->id) }}">
-                                        <img src="{{   asset('storage/product/'.$carted->product->cover_image)  }}" alt="{{ \Str::limit($carted->$product->name, 20) }}">
+                                        <img src="{{   asset('storage/product/'.$carted->product->cover_image)  }}" alt="{{ \Str::limit($carted->product->name, 20) }}">
                                     </a>
                                 </div>
                                 <div class="cartmini__content">
-                                    <h5 class="cartmini__title"><a href="{{  route('product-single', $carted->id) }}">{{ \Str::limit($carted->$product->name, 20) }}</a></h5>
+                                    <h5 class="cartmini__title"><a href="{{  route('product-single', $carted->id) }}">{{ \Str::limit($carted->product->name, 20) }}</a></h5>
                                     <div class="cartmini__price-wrapper">
                                         <span class="cartmini__price">${{ $carted->product->price }}</span>
                                         <span class="cartmini__quantity">x{{ $carted->quantity }}</span>
