@@ -4,13 +4,31 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\SubCategory;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class pagecontroller extends Controller
 {
     public function index(){
+        $adminUser = Auth::user();
+        if ($adminUser) {
+            $adminUserId = $adminUser->id;
+        } else {
+            $adminUserId = [];
+        }
+        $unreadNotifications = Notification::where('user_id', $adminUserId)
+            ->unread()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $readNotifications = Notification::where('user_id', $adminUserId)
+            ->read()
+            ->orderBy('created_at', 'desc')
+            ->get();
         $category = Category::orderBy('id', 'desc')->get();
         $subcategories = SubCategory::orderBy('id', 'desc')->get();
 
@@ -31,7 +49,12 @@ class pagecontroller extends Controller
         usort($categories, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
-        return view('admin.subcategories.index', compact('category', 'categories'));
+        return view('admin.subcategories.index',[
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications,
+            'category'=>$category,
+            'categories'=>$categories,
+        ]);
     }
 
 
@@ -74,5 +97,14 @@ class pagecontroller extends Controller
         $subcategories = SubCategory::find($id);
         $subcategories->delete();
         return back()->with('info', 'Deleted Successfully!!');
+    }
+
+
+    public function Users()
+    {
+        $users = User::orderBy('id', 'desc')->get();
+        return view('admin.user', [
+          'users'=>$users,
+        ]);
     }
 }

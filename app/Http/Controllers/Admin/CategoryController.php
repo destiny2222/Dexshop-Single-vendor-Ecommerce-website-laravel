@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\Subcategory;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -20,6 +22,21 @@ class CategoryController extends Controller
     public function index()
     {
         //
+         $adminUser = Auth::user();
+        if ($adminUser) {
+            $adminUserId = $adminUser->id;
+        } else {
+            $adminUserId = [];
+        }
+        $unreadNotifications = Notification::where('user_id', $adminUserId)
+            ->unread()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $readNotifications = Notification::where('user_id', $adminUserId)
+            ->read()
+            ->orderBy('created_at', 'desc')
+            ->get();
         $category = Category::orderBy('id', 'desc')->get();
 
 
@@ -40,7 +57,12 @@ class CategoryController extends Controller
         usort($categories, function ($a, $b) {
             return $a['date'] <=> $b['date'];
         });
-        return view('admin.category.index', compact('categories', 'category'));
+        return view('admin.category.index',[
+            'categories'=>$categories,
+            'category'=>$category,
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications,
+        ]);
     }
 
     /**

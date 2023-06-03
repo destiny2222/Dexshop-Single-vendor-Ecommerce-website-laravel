@@ -64,23 +64,36 @@
                                    </li>
                                 </ul>
                              </div>
-                             <!-- <div class="tp-header-top-menu-item tp-header-setting">
+                             <div class="tp-header-top-menu-item tp-header-setting">
                                 <span class="tp-header-setting-toggle" id="tp-header-setting-toggle">Setting</span>
                                 <ul>
-                                   <li>
-                                      <a href="profile.html">My Profile</a>
-                                   </li>
-                                   <li>
-                                      <a href="wishlist.html">Wishlist</a>
-                                   </li>
-                                   <li>
-                                      <a href="cart.html">Cart</a>
-                                   </li>
-                                   <li>
-                                      <a href="login.html">Logout</a>
-                                   </li>
+                                   @guest
+                                        <li>
+                                            <a href="/login">Login</a>
+                                        </li>
+                                       @else
+                                       <li>
+                                            <a href="{{ route('dashboard-page') }}">My Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('wishlist.index') }}">Wishlist</a>
+                                        </li>
+                                        <li>
+                                            <a href="/cart">Cart</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                            document.getElementById('logout-form').submit();">
+                                                {{ __('Logout') }}
+                                            </a>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </li>
+                                   @endguest
                                 </ul>
-                             </div> -->
+                             </div>
                           </div>
                        </div>
                     </div>

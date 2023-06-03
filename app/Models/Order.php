@@ -18,11 +18,14 @@ class Order extends Model
         'address',
         'shipping_fee',
         'subtotal',
+        'billing_address',
         'total',
         'reference',
         'status',
         'city',
-        'country',
+        'state',
+        'zip_code',
+        'country_code',
         'payment_date'
     ];
 

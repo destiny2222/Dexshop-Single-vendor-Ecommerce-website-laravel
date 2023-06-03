@@ -13,7 +13,7 @@
                 <div class="breadcrumb__content p-relative z-index-1">
                    <h3 class="breadcrumb__title">Shop Grid</h3>
                    <div class="breadcrumb__list">
-                      <span><a href="#">Home</a></span>
+                      <span><a href="/">Home</a></span>
                       <span>Shop Grid</span>
                    </div>
                 </div>
@@ -37,8 +37,8 @@
                                     <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6">
                                         <div class="tp-product-item-2 mb-40">
                                             <div class="tp-product-thumb-2 p-relative z-index-1 fix w-img  ">
-                                                <a href="">
-                                                    <img src="{{ asset('storage/product/'.$product->image) }}" height="200px" alt="">
+                                                <a href="{{ route('product-single', $product->slug) }}">
+                                                    <img src="{{ asset('storage/product/'.$product->cover_image) }}" height="200px" alt="">
                                                 </a>
                                                 <!-- product action -->
                                                 <div class="tp-product-action-2 tp-product-action-blackStyle">
@@ -81,10 +81,10 @@
                                             </div>
                                             <div class="tp-product-content-2 pt-15">
                                                 <div class="tp-product-tag-2">
-                                                   <a href="#" style="font-size: 11px">{{  $product->subcategory->name }}</a>
+                                                   <a href="{{ route('product-single', $product->slug) }}" style="font-size: 11px">{{  $product->subcategory->name }}</a>
                                                 </div>
                                                 <h3 class="tp-product-title-2">
-                                                <a href="product-details.html">{{  $product->name  }}</a>
+                                                <a href="{{ route('product-single', $product->slug) }}">{{  $product->name  }}</a>
                                                 </h3>
                                                 <div class="tp-product-rating-icon tp-product-rating-icon-2">
                                                 <span><i class="fa-solid fa-star"></i></span>
@@ -106,37 +106,53 @@
                        </div>
                    </div>
                    <div class="tp-shop-pagination mt-20">
-                      <div class="tp-pagination">
-                         <nav>
+                    <div class="tp-pagination">
+                        <nav>
                             <ul>
-                               <li>
-                                  <a href="shop.html" class="tp-pagination-prev prev page-numbers">
-                                     <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                     </svg>
-                                  </a>
-                               </li>
-                               <li>
-                                  <a href="shop.html">1</a>
-                               </li>
-                               <li>
-                                  <span class="current">2</span>
-                               </li>
-                               <li>
-                                  <a href="shop.html">3</a>
-                               </li>
-                               <li>
-                                  <a href="shop.html" class="next page-numbers">
-                                     <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M13.9998 6.77883L1 6.77883" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                        <path d="M8.75684 1.55767L14.0001 6.7784L8.75684 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                                     </svg>
-                                  </a>
-                               </li>
+                                <li>
+                                    <!-- Previous Page Link -->
+                                    @if ($products->onFirstPage())
+                                        <a href="#" class="tp-pagination-prev prev page-numbers disabled">
+                                            <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    @else
+                                        <a href="{{ $products->previousPageUrl() }}" class="tp-pagination-prev prev page-numbers">
+                                            <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M1.00017 6.77879L14 6.77879" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M6.24316 11.9999L0.999899 6.77922L6.24316 1.55762" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    @endif
+                                </li>
+                                <!-- Loop through the paginated data -->
+                                <li>
+                                    <span class="current">{{ $products->currentPage() }}</span>
+                                </li>
+                                <li>
+                                    <!-- Next Page Link -->
+                                    @if ($products->hasMorePages())
+                                        <a href="{{ $data->nextPageUrl() }}" class="next page-numbers">
+                                            <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.9998 6.77883L1 6.77883" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.75684 1.55767L14.0001 6.7784L8.75684 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    @else
+                                        <a href="#" class="next page-numbers disabled">
+                                            <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.9998 6.77883L1 6.77883" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                                <path d="M8.75684 1.55767L14.0001 6.7784L8.75684 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                            </svg>
+                                        </a>
+                                    @endif
+                                </li>
                             </ul>
-                          </nav>
-                      </div>
+                        </nav>
+                    </div>
+
                    </div>
                 </div>
              </div>

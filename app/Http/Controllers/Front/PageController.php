@@ -25,11 +25,11 @@ class PageController extends Controller
     public function home()
     {
 
-        $category = Category::with('subcategories')->first()->take(1);
+        $category = Category::with('subcategories')->first();
 
         if ($category) {
             // Categories exist in the database
-            $categor = $category->get();
+            $categor = $category->get()->take(1);
         } else {
             // No categories in the database
             $categor = [];
@@ -65,7 +65,7 @@ class PageController extends Controller
         //
 
 
-        $blog = Blog::orderBy('id', 'desc')->paginate(3);
+        $blog = Blog::orderBy('id', 'desc')->paginate(6);
         $blogtag = Tag::latest('id')->get();
         $category = BlogCategory::latest('id')->get();
         $recentpost = Blog::latest('id')->get();
@@ -142,9 +142,9 @@ class PageController extends Controller
     {
 
         $subcategory = Subcategory::where('slug', $subcategory_id)->firstOrFail();
-        $products = Product::where('subcategory_id', $subcategory->id)->get();
+        $products = Product::where('subcategory_id', $subcategory->id)->paginate(10);
 
-        dd($products);
+
         return view('frontend.product', [
             'products' => $products,
         ]);
@@ -154,13 +154,14 @@ class PageController extends Controller
     {
 
 
-        $products = Product::orderBy('id', 'desc')->get();
+        $products = Product::orderBy('id', 'desc')->paginate(10);
         $subcategories = SubCategory::with('products')->get();
 
         // counting the numbers of times subcategory is used by a product
-        $count = 0;
+        $subcategories = SubCategory::withCount('products')->get();
         foreach ($subcategories as $subcategory) {
-            $count += $subcategory->products->count();
+            $count = $subcategory->products_count;
+            // Do something with the count, such as displaying or storing it
         }
 
 

@@ -25,7 +25,19 @@ Route::prefix('admin')->name('admin.')->group(function (){
     Route::post('subcatagory', [pagecontroller::class, 'storeSubcategory'])->name('store-subcategory');
     Route::put('subcatagory/{id}/update', [pagecontroller::class, 'Updatesubcategory'])->name('update-subcategory');
     Route::delete('subcatagory/{id}/delete', [pagecontroller::class, 'Deletesubcategory'])->name('delete-subcategory');
-    // Route::get('/profile', [HomeController::class, 'profile'])->name('profile-page');
-    // Route::put('/profile_update/{id}', [HomeController::class, 'update'])->name('update-profile-page');
-    // Route::put('change-passwprd', [HomeController::class, 'validatepassword'])->name('change-password-page');
+    Route::get('/profile', [HomeController::class, 'profile'])->name('profile-page');
+    Route::put('/profile_update/{id}', [HomeController::class, 'update'])->name('update-profile-page');
+    Route::put('change-passwprd', [HomeController::class, 'validatepassword'])->name('change-password-page');
+    Route::get('markread', [HomeController::class, 'markAllNotificationsAsRead'])->name('notifications.markAllAsRead');
+
+
+    Route::get('optimize',function (){
+        \Illuminate\Support\Facades\Artisan::call('optimize');
+        return 1;
+    });
+    Route::get('clear',function (){
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        return 1;
+    });
+
 });

@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogCategoryRequest;
 use App\Models\BlogCategory;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Log;
 
@@ -16,8 +18,27 @@ class BlogCategoryController extends Controller
     public function index()
     {
         //
+        $adminUser = Auth::user();
+        if ($adminUser) {
+            $adminUserId = $adminUser->id;
+        } else {
+            $adminUserId = [];
+        }
+        $unreadNotifications = Notification::where('user_id', $adminUserId)
+            ->unread()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $readNotifications = Notification::where('user_id', $adminUserId)
+            ->read()
+            ->orderBy('created_at', 'desc')
+            ->get();
         $categories = BlogCategory::orderBy('id', 'desc')->get();
-        return view('admin.postcategory.index', compact('categories'));
+        return view('admin.postcategory.index',[
+            'categories'=>$categories,
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications,
+        ]);
     }
 
     /**

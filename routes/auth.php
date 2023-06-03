@@ -23,4 +23,5 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['auth', 'verified']], fu
         \Illuminate\Support\Facades\Artisan::call('optimize:clear');
         return 1;
     });
-});
+})->middleware(['auth', 'verified']);
+

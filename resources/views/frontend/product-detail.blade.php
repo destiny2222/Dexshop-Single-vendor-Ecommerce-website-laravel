@@ -125,7 +125,7 @@
                       <!-- price -->
                       <div class="tp-product-details-price-wrapper mb-20">
                          <span class="tp-product-details-price old-price">${{  $product->discount_price }}</span>
-                         <span class="tp-product-details-price new-price">${{  $product->price }}</span>
+                         <span class="tp-product-details-price new-price">${{  number_format($product->price,2) }}</span>
                       </div>
 
                       <!-- variations -->
@@ -187,6 +187,7 @@
                       <div class="tp-product-details-action-sm">
                          <form action="{{ route('wishlist.add') }}" method="post">
                             @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <button type="submit" class="tp-product-details-action-sm-btn">
                                 <svg width="17" height="16" viewBox="0 0 17 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M2.33541 7.54172C3.36263 10.6766 7.42094 13.2113 8.49945 13.8387C9.58162 13.2048 13.6692 10.6421 14.6635 7.5446C15.3163 5.54239 14.7104 3.00621 12.3028 2.24514C11.1364 1.8779 9.77578 2.1014 8.83648 2.81432C8.64012 2.96237 8.36757 2.96524 8.16974 2.81863C7.17476 2.08487 5.87499 1.86999 4.69024 2.24514C2.28632 3.00549 1.68259 5.54167 2.33541 7.54172ZM8.50115 15C8.4103 15 8.32018 14.9784 8.23812 14.9346C8.00879 14.8117 2.60674 11.891 1.29011 7.87081C1.28938 7.87081 1.28938 7.8701 1.28938 7.8701C0.462913 5.33895 1.38316 2.15812 4.35418 1.21882C5.7492 0.776121 7.26952 0.97088 8.49895 1.73195C9.69029 0.993159 11.2729 0.789057 12.6401 1.21882C15.614 2.15956 16.5372 5.33966 15.7115 7.8701C14.4373 11.8443 8.99571 14.8088 8.76492 14.9332C8.68286 14.9777 8.592 15 8.50115 15Z" fill="currentColor"/>
@@ -266,9 +267,11 @@
                             <div class="tp-product-details-additional-info ">
                                <div class="row justify-content-center">
                                   <div class="col-12 col-xl-6">
-                                     {!! html_entity_decode($product->specifications)   !!}
+                                    <h3>Specifications</h3>
+                                     {!! html_entity_decode($product->specification)   !!}
                                   </div>
                                   <div class="col-12 col-xl-6">
+                                      <h3>Key Feature</h3>
                                      {!! html_entity_decode( $product->keyfeature)  !!}
                                   </div>
                                </div>
@@ -325,15 +328,15 @@
                                            <div class="tp-product-details-review-avater d-flex align-items-start">
                                               <div class="tp-product-details-review-avater-thumb">
                                                  <a href="#">
-                                                    <img src="{{ asset('users/'.$feedback->user->image) }}" alt="">
+                                                    <img src="{{ asset('profile/'.$feedback->user->image ) }}" alt="">
                                                  </a>
                                               </div>
                                               <div class="tp-product-details-review-avater-content">
                                                 @if($product->ratings()->count() > 0)
-                                                    Average Rating: {{ $product->ratings()->avg('rating') }}
+                                                    Average Rating: <span class="text-warning">{{ $product->ratings()->avg('rating') }}</span>
                                                     <div class="tp-product-details-review-avater-rating d-flex align-items-center">
                                                         @for($i = 1; $i <= 5; $i++)
-                                                            @if($i <= $rating)
+                                                            @if($i <= $product->ratings()->count())
                                                                 <span><i class="fa-solid fa-star"></i></span>
                                                             @else
                                                                 <span><i class="fa-regular fa-star"></i></span>
@@ -345,10 +348,10 @@
                                                     No ratings yet.
                                                 @endif
                                                  <h3 class="tp-product-details-review-avater-title">{{ $feedback->user->name  }}</h3>
-                                                 <span class="tp-product-details-review-avater-meta">{{  $feedback->created_at }}</span>
+                                                 <span class="tp-product-details-review-avater-meta">{{  $feedback->created_at->diffforHumans() }}</span>
 
                                                  <div class="tp-product-details-review-avater-comment">
-                                                    <p>This review is for the Samsung Tab S6 Lite, 64gb wifi in blue. purchased this product performed.</p>
+                                                    <p>{{ $feedback->message }}</p>
                                                  </div>
                                               </div>
                                            </div>

@@ -64,7 +64,9 @@
 </div>
 @endsection --}}
 @extends('layouts.main')
-
+@section('head')
+   @include('partials.subheader')
+@endsection
 @section('content')
 
 <main>

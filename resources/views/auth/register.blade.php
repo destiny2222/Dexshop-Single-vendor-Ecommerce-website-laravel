@@ -87,7 +87,7 @@
                             </div>
                             <div class="tp-login-input-box">
                                 <div class="tp-login-input">
-                                   <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="new-password">
+                                   <input id="tp_password" type="password" name="password_confirmation" required autocomplete="new-password">
                                 </div>
                                 <div class="tp-login-input-eye" id="password-show-toggle">
                                    <span id="open-eye" class="open-eye">
@@ -108,7 +108,7 @@
                                    </span>
                                 </div>
                                 <div class="tp-login-input-title">
-                                   <label for="password-confirm">Confirm Password</label>
+                                   <label for="tp_password">Confirm Password</label>
                                 </div>
                              </div>
                          </div>
@@ -132,4 +132,7 @@
 
  </main>
 
+@endsection
+@section('scripts')
+   @include('partials.script')
 @endsection

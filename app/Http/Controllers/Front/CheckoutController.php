@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
 use App\Models\Order;
-use App\Models\SubCategory;
-use App\Models\Wishlist;
+use App\Models\Product;
+use App\Notifications\PaymentNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Redirect;
 use Paystack;
 
@@ -24,10 +25,9 @@ class CheckoutController extends Controller
         $this->middleware('check.user');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $cartItems = CartItem::where('user_id', auth()->id())->get();
-        $categories = SubCategory::all();
         $subtotal = 0;
         foreach ($cartItems as $item) {
             $subtotal += $item->subtotal();
@@ -37,14 +37,14 @@ class CheckoutController extends Controller
         // $paystackPublicKey = env('PAYSTACK_PUBLIC_KEY');
 
         $totalprice = $subtotal;
-        // $shippingFee = (float) $request->input('shipping_fee');
-        $total = $totalprice;
+        $shippingFee = (float) $request->input('shipping_fee');
+        $total = $totalprice + $shippingFee;
 
         return view('frontend.checkout', [
             'productItem' => $cartItems,
             'totalprice' => $totalprice,
             'total' => $total,
-            'categories' => $categories,
+            // 'categories' => $categories,
             // 'paystackPublicKey'=>$paystackPublicKey,
         ]);
     }
@@ -69,15 +69,22 @@ class CheckoutController extends Controller
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'name' => $request->input('name'),
-                'lastname'=>$request->input('lastname'),
-                'reference'=>$request->input('reference'),
+                'lastname' => $request->input('lastname'),
+                'reference' => $request->input('reference'),
                 'email' => $request->input('email'),
                 'phone_number' => $request->input('phone_number'),
                 'address' => $request->input('address'),
+                'billing_address' => $request->input('billing_address'),
                 'shipping_fee' => $shippingFee,
+                'city'=>$request->input('city'),
+                'state'=>$request->input('state'),
+                'country_code'=>$request->input('country_code'),
+                'zip_code'=>$request->input('zip_code'),
                 'subtotal' => $subtotal,
                 'total' => $total
             ]);
+            $productInfo = [];
+
             foreach ($cartItems as $item) {
                 $order->items()->create([
                     'user_id' => auth()->id(),
@@ -85,8 +92,16 @@ class CheckoutController extends Controller
                     'quantity' => $item->quantity,
                     'price' => $item->price
                 ]);
+
+                $product = Product::find($item->product_id);
+                $productInfo[] = [
+                    'name' => $product->name,
+                    'price' => $product->price
+                ];
+
                 $item->delete();
             }
+
             $paymentData = [
                 'email' => $request->input('email'),
                 'amount' => $total * 100,
@@ -96,14 +111,15 @@ class CheckoutController extends Controller
                     'order_id' => $order->id
                 ],
             ];
-            $payment = Paystack::getAuthorizationUrl($paymentData)->redirectNow();
-
-            return $payment;
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
+            return Paystack::getAuthorizationUrl($paymentData)->redirectNow();;
+            // return $payment;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
             return back()->with('error', 'The paystack token has expired. Please refresh the page and try again');
         }
     }
+
+
 
     public function handleGatewayCallback(Request $request)
     {
@@ -117,13 +133,34 @@ class CheckoutController extends Controller
             $order->status = 'paid';
             $order->save();
 
-            return redirect()->route('orders.show', ['order' => $order])
-                ->with('success', 'Payment successful');
+            // Retrieve the product information
+            $productInfo = [];
+            foreach ($order->items as $item) {
+                $product = Product::find($item->product_id);
+                $productInfo[] = [
+                    'name' => $product->name,
+                    'price' => $product->price
+                ];
+            }
+
+            // Retrieve the authenticated user
+            $user = auth()->user();
+
+            // Send notification to user with product information
+            $user->notify(new PaymentNotification($productInfo));
+
+            // Send notification to administrator with product information
+            $administratorEmail = 'admin@example.com';
+            Notification::route('mail', $administratorEmail)
+                ->notify(new PaymentNotification($productInfo));
+            return response()->json(['success' => true]);
+            // return back()->view('frontend.order' , ['order' => $order])->with('success', 'Payment successful');
         } else {
-            return redirect()->route('orders.index')
-                ->with('error', 'Payment failed');
+            return back()->with('error', 'Payment failed');
         }
     }
+
+
 
 
 

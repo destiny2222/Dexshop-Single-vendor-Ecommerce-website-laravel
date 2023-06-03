@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartItem;
+use App\Models\Order;
 use App\Models\SubCategory;
 use App\Models\User;
 use App\Models\Wishlist;
@@ -32,8 +33,13 @@ class HomeController extends Controller
     public function index()
     {
 
-        return view('dashboard.index');
+        $order = Order::where('user_id', auth()->user()->id)->get();
+        return view('dashboard.index', compact('order'));
     }
+
+
+    
+
 
 
     public function validatepassword(Request  $request){

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
+use App\Models\Notification;
 use App\Models\Product;
 use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Str;
@@ -21,12 +23,33 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $adminUser = Auth::user();
+        if ($adminUser) {
+            $adminUserId = $adminUser->id;
+        } else {
+            $adminUserId = [];
+        }
+        $unreadNotifications = Notification::where('user_id', $adminUserId)
+            ->unread()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $readNotifications = Notification::where('user_id', $adminUserId)
+            ->read()
+            ->orderBy('created_at', 'desc')
+            ->get();
         $categories = Category::with('subcategories')->get();
         $subcategory = SubCategory::get();
         $product = Product::with('subCategory')->get();
 
 
-        return view('admin.product.index', compact('product', 'categories', 'subcategory'));
+        return view('admin.product.index',[
+            'product'=>$product,
+            'categories'=>$categories,
+            'subcategory'=>$subcategory,
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications,
+        ]);
     }
 
     /**

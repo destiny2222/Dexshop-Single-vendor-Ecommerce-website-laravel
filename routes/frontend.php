@@ -38,7 +38,8 @@ Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout-in
 // Route::get('/checkout', [CheckoutController::class, 'showCheckoutForm'])->name('checkout');
 Route::post('/checkout', [CheckoutController::class, 'checkout'])->name('checkout.submit');
 // Route::get('/orders/{order}', [CheckoutController::class, 'show'])->name('orders.show');
-Route::post('/payment/callback', [CheckoutController::class, 'handleGatewayCallback']);
+Route::post('/payment/callback/', [CheckoutController::class, 'handleGatewayCallback']);
+
 
 //Coupon
 // Route::post('/apply-coupon', [CheckoutController::class, 'applyCoupon'])->name('apply-coupon');

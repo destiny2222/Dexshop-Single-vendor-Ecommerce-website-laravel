@@ -17,11 +17,11 @@ class ProductRating extends Model
 
     public function products()
     {
-        $this->belongsTo(Product::class);
+      return  $this->belongsTo(Product::class);
     }
 
     public function users()
     {
-        $this->belongsTo(User::class);
+      return  $this->belongsTo(User::class);
     }
 }

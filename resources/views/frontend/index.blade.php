@@ -419,6 +419,7 @@
                                                                 </form>
                                                                 <form action="{{ route('wishlist.add') }}" method="post">
                                                                     @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                                     <button type="submit"
                                                                         class="tp-product-action-btn tp-product-add-to-wishlist-btn">
                                                                         <svg width="20" height="19"
@@ -465,7 +466,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="tp-product-price-wrapper">
-                                                            <span class="tp-product-price">${{ $product->price }}</span>
+                                                            <span class="tp-product-price">${{ number_format($product->price, 2) }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -531,6 +532,7 @@
                                                             </form>
                                                             <form action="{{ route('wishlist.add') }}" method="post">
                                                                 @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                                 <button type="submit"
                                                                     class="tp-product-action-btn tp-product-add-to-wishlist-btn">
                                                                     <svg width="20" height="19"
@@ -576,7 +578,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="tp-product-price-wrapper">
-                                                        <span class="tp-product-price">${{ $product->price }}</span>
+                                                        <span class="tp-product-price">${{ number_format($product->price,2) }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -641,6 +643,7 @@
                                                                 </form>
                                                                 <form action="{{ route('wishlist.add') }}" method="post">
                                                                     @csrf
+                                                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                                     <button type="submit"
                                                                         class="tp-product-action-btn tp-product-add-to-wishlist-btn">
                                                                         <svg width="20" height="19"
@@ -686,7 +689,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="tp-product-price-wrapper">
-                                                            <span class="tp-product-price">${{ $product->price }}</span>
+                                                            <span class="tp-product-price">${{ number_format($product->price, 2) }}</span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -880,6 +883,7 @@
                                                             </form>
                                                             <form action="{{ route('wishlist.add') }}" method="post">
                                                                 @csrf
+                                                                <input type="hidden" name="product_id" value="{{ $product->id }}">
                                                                 <button type="submit"
                                                                     class="tp-product-action-btn tp-product-add-to-wishlist-btn">
                                                                     <svg width="20" height="19"
@@ -925,7 +929,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="tp-product-price-wrapper">
-                                                        <span class="tp-product-price">${{ $product->price }}</span>
+                                                        <span class="tp-product-price">${{ number_format($product->price, 2) }}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1073,7 +1077,7 @@
                                     <div class="tp-product-thumb mr-25 fix">
                                         <a href="{{  route('product-single', $products->slug)  }}">
                                             <img src="{{ asset('storage/product/' . $products->cover_image) }}"
-                                                width="125" alt="{{ $products->price }}">
+                                                width="125" alt="{{ $products->name }}">
                                         </a>
                                     </div>
                                     <div class="tp-product-sm-content">
@@ -1100,7 +1104,7 @@
                                             </div>
                                         </div>
                                         <div class="tp-product-price-wrapper">
-                                            <span class="tp-product-price">${{ $products->price }}</span>
+                                            <span class="tp-product-price">${{ number_format($products->price, 2) }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1153,7 +1157,7 @@
                                             </div>
                                         </div>
                                         <div class="tp-product-price-wrapper">
-                                            <span class="tp-product-price">${{ $products->price }}</span>
+                                            <span class="tp-product-price">${{ number_format($products->price, 2) }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -1206,7 +1210,7 @@
                                             </div>
                                         </div>
                                         <div class="tp-product-price-wrapper">
-                                            <span class="tp-product-price">${{ $product->price }}</span>
+                                            <span class="tp-product-price">${{ number_format($product->price, 2) }}</span>
                                         </div>
                                     </div>
                                 </div>

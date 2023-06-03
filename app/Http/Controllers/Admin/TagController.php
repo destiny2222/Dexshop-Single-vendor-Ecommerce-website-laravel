@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -17,8 +19,27 @@ class TagController extends Controller
     public function index()
     {
         //
+        $adminUser = Auth::user();
+        if ($adminUser) {
+            $adminUserId = $adminUser->id;
+        } else {
+            $adminUserId = [];
+        }
+        $unreadNotifications = Notification::where('user_id', $adminUserId)
+            ->unread()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $readNotifications = Notification::where('user_id', $adminUserId)
+            ->read()
+            ->orderBy('created_at', 'desc')
+            ->get();
         $tag = Tag::orderBy("id", "desc")->get();
-        return view('admin.Tag.index', compact('tag'));
+        return view('admin.Tag.index',[
+            'tag'=>$tag,
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications,
+        ]);
     }
 
     /**

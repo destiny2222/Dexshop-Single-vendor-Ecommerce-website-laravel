@@ -35,7 +35,7 @@
                       <h3 class="tp-contact-title">Sent A Message</h3>
 
                       <div class="tp-contact-form">
-                         <form id="contact-form" action="/contactform" method="POST">
+                         <form  action="{{  route('contact-store')  }}" method="POST">
                             @csrf
                             <div class="tp-contact-input-wrapper">
                                <div class="tp-contact-input-box">
@@ -75,7 +75,6 @@
                                <button type="submit">Send Message</button>
                             </div>
                          </form>
-                         <p class="ajax-response"></p>
                       </div>
                    </div>
                 </div>

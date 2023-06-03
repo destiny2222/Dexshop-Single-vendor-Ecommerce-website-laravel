@@ -2,21 +2,21 @@
 
     <!-- LOGO -->
     <div class="navbar-brand-box">
-        <a href="index.html" class="logo logo-dark">
+        <a href="{{  route('admin.home') }}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="assets/images/logo-sm.png" alt="" height="22">
+                <img src="{{ asset('profile/avatar.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="assets/images/logo-dark.png" alt="" height="20">
+                <img src="{{ asset('profile/avatar.png') }}" alt="" height="20">
             </span>
         </a>
 
-        <a href="index.html" class="logo logo-light">
+        <a href="{{  route('admin.home') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="assets/images/logo-sm.png" alt="" height="22">
+                <img src="{{ asset('profile/avatar.png') }}" alt="" height="22">
             </span>
             <span class="logo-lg">
-                <img src="assets/images/logo-light.png" alt="" height="20">
+                <img src="{{ asset('profile/avatar.png') }}" alt="" height="20">
             </span>
         </a>
     </div>
@@ -43,11 +43,11 @@
                 <li>
                     <a href="javascript: void(0);" class="has-arrow waves-effect">
                         <i class="uil-window-section"></i>
-                        <span>Layouts</span>
+                        <span>Management</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="true">
                         <li>
-                            <a href="" class="has-arrow">My Profile</a>
+                            <a href="{{ route('admin.profile-page') }}" class="has-arrow">My Profile</a>
                         </li>
                         <li>
                             <a href="" class="has-arrow">All Users</a>

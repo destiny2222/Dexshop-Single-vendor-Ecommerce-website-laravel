@@ -44,21 +44,23 @@
                         <div class="cartmini__widget">
                             <div class="cartmini__widget-item">
                                 <div class="cartmini__thumb">
-                                    <a href="{{  route('product-single', $carted->id) }}">
+                                    <a href="/cart">
                                         <img src="{{   asset('storage/product/'.$carted->product->cover_image)  }}" alt="{{ \Str::limit($carted->product->name, 20) }}">
                                     </a>
                                 </div>
                                 <div class="cartmini__content">
-                                    <h5 class="cartmini__title"><a href="{{  route('product-single', $carted->id) }}">{{ \Str::limit($carted->product->name, 20) }}</a></h5>
+                                    <h5 class="cartmini__title"><a href="/cart">{{ \Str::limit($carted->product->name, 20) }}</a></h5>
                                     <div class="cartmini__price-wrapper">
-                                        <span class="cartmini__price">${{ $carted->product->price }}</span>
+                                        <span class="cartmini__price">${{ number_format($carted->product->price, 2) }}</span>
                                         <span class="cartmini__quantity">x{{ $carted->quantity }}</span>
                                     </div>
                                 </div>
                                 <form action="{{  route('cart.delete', $carted->id) }}" method="post">
                                     @csrf
                                     @method('delete')
-                                    <a href="" class="cartmini__del"><i class="fa-regular fa-xmark"></i></a>
+                                    <button type="submit">
+                                        <a href="" class="cartmini__del"><i class="fa-regular fa-xmark"></i></a>
+                                    </button>
                                 </form>
                             </div>
                         </div>
@@ -69,7 +71,7 @@
             <div class="cartmini__checkout">
                 <div class="cartmini__checkout-title mb-30">
                     <h4>Subtotal:</h4>
-                    <span>${{ $totalPrice }}</span>
+                    <span>${{ number_format($totalPrice, 2) }}</span>
                 </div>
                 <div class="cartmini__checkout-btn">
                     <a href="{{  route('cart-home') }}" class="tp-btn mb-10 w-100"> view cart</a>

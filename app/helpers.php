@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Admin;
 use App\Models\CartItem;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ use Illuminate\Support\Facades\Auth;
             return $currentImagePath;
         }
     }
-    
+
 
     if (!function_exists('upload_single_image')){
         function upload_single_image($folder,$key): string
@@ -70,7 +71,14 @@ use Illuminate\Support\Facades\Auth;
 
 function calculateTotalPrice()
 {
-    $cart = CartItem::all();
+    $user = Auth::user();
+    if ($user) {
+        $cart = CartItem::where('user_id', $user->id)->get();
+    } else {
+        $cart = CartItem::where('user_id', $user)->get();
+    }
+
+
     $totalPrice = 0;
     foreach ($cart as $carted) {
         $totalPrice += $carted->product->price * $carted->quantity;
@@ -80,6 +88,18 @@ function calculateTotalPrice()
         'cart' => $cart,
         'totalPrice' => $totalPrice
     ];
+}
+
+function Totalprice()
+{
+    $user = Auth::user();
+    $cart = CartItem::where('user_id', $user)->get();
+    $totalPrice = 0;
+    foreach ($cart as $carted) {
+        $totalPrice += $carted->product->price * $carted->quantity;
+    }
+
+    return $totalPrice;
 }
 
 // app/Helpers/UserHelper.php
@@ -112,3 +132,12 @@ function getCategoryTree()
     return Category::with('subcategories')->get();
 }
 
+
+function getAdminName(){
+    $admin = Admin::orderBy('id', 'desc')->get();
+    foreach ($admin as $adminUser) {
+        $adminName = $adminUser->name;
+    }
+
+    return $adminName;
+}

@@ -13,7 +13,7 @@
                 <div class="breadcrumb__content p-relative z-index-1">
                    <h3 class="breadcrumb__title">Wishlist</h3>
                    <div class="breadcrumb__list">
-                      <span><a href="#">Home</a></span>
+                      <span><a href="/">Home</a></span>
                       <span>Wishlist</span>
                    </div>
                 </div>
@@ -49,11 +49,11 @@
                             @foreach ($wishlist as $item)
                             <tr>
                                 <!-- img -->
-                                <td class="tp-cart-img"><a href="#"> <img src="{{ asset('storage/product/'.$item->product->image) }}" alt=""></a></td>
+                                <td class="tp-cart-img"><a href="#"> <img src="{{ asset('storage/product/'.$item->product->cover_image) }}" alt=""></a></td>
                                 <!-- title -->
                                 <td class="tp-cart-title"><a href="#">{{ $item->product->name }}</a></td>
                                 <!-- price -->
-                                <td class="tp-cart-price"><span>{{ $item->product->price }}</span></td>
+                                <td class="tp-cart-price"><span>{{ number_format($item->product->price, 2) }}</span></td>
                                 <!-- quantity -->
                                 <td class="tp-cart-quantity">
                                 <div class="tp-product-quantity mt-10 mb-10">
@@ -104,7 +104,7 @@
                    <div class="row align-items-end">
                       <div class="col-xl-6 col-md-4">
                          <div class="tp-cart-update">
-                            <a href="cart.html" class="tp-cart-update-btn">Go To Cart</a>
+                            <a href="/cart" class="tp-cart-update-btn">Go To Cart</a>
                          </div>
                       </div>
                    </div>

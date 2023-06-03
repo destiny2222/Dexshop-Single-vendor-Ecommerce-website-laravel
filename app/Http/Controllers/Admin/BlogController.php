@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\BlogRequest;
 use App\Models\Blog;
 use App\Models\BlogCategory;
+use App\Models\Notification;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -18,10 +20,31 @@ class BlogController extends Controller
      */
     public function index()
     {
+         $adminUser = Auth::user();
+        if ($adminUser) {
+            $adminUserId = $adminUser->id;
+        } else {
+            $adminUserId = [];
+        }
+        $unreadNotifications = Notification::where('user_id', $adminUserId)
+            ->unread()
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $readNotifications = Notification::where('user_id', $adminUserId)
+            ->read()
+            ->orderBy('created_at', 'desc')
+            ->get();
         $tag = Tag::select('id', 'name')->get();
         $categories = BlogCategory::select('id', 'name')->get();
         $post = Blog::orderBy("id", "desc")->paginate(3);
-        return view('admin.post.index', compact('post', 'tag', 'categories'));
+        return view('admin.post.index',[
+            'unreadNotifications' => $unreadNotifications,
+            'readNotifications' => $readNotifications,
+            'post'=>$post,
+            'tag'=>$tag,
+            'categories'=>$categories,
+        ]);
 
     }
 

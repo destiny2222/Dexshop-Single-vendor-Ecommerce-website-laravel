@@ -46,12 +46,12 @@
                                  <tr class="ptoduct_data">
                                        <!-- img -->
                                        <td class="tp-cart-img">
-                                          <a href="product-details.html"> <img src="{{ asset('storage/product/'.$item->product->cover_image) }}" alt=""></a>
+                                          <a href="{{ route('product-single', $item->product->slug) }}"> <img src="{{ asset('storage/product/'.$item->product->cover_image) }}" alt=""></a>
                                        </td>
                                        <!-- title -->
-                                       <td class="tp-cart-title"><a href="product-details.html">{{ $item->product->name }}</a></td>
+                                       <td class="tp-cart-title"><a href="{{ route('product-single', $item->product->slug) }}">{{ $item->product->name }}</a></td>
                                        <!-- price -->
-                                       <td class="tp-cart-price"><span>${{  $item->product->price }}</span></td>
+                                       <td class="tp-cart-price"><span>${{  number_format($item->product->price, 2) }}</span></td>
                                        <!-- quantity -->
                                        <td class="tp-cart-quantity">
                                        <div class="tp-product-quantity mt-10 mb-10">
@@ -133,7 +133,7 @@
                 <div class="tp-cart-checkout-wrapper">
                    <div class="tp-cart-checkout-top d-flex align-items-center justify-content-between">
                       <span class="tp-cart-checkout-top-title">Subtotal</span>
-                      <span class="tp-cart-checkout-top-price">$742</span>
+                      <span class="tp-cart-checkout-top-price">${{ number_format(Totalprice(), 2) }}</span>
                    </div>
                    <div class="tp-cart-checkout-shipping">
                       <h4 class="tp-cart-checkout-shipping-title">Shipping</h4>
@@ -155,7 +155,7 @@
                    </div>
                    <div class="tp-cart-checkout-total d-flex align-items-center justify-content-between">
                       <span>Total</span>
-                      <span>${{  $totalprice }}</span>
+                      <span>${{ number_format( Totalprice() , 2) }}</span>
                    </div>
                    <div class="tp-cart-checkout-proceed">
                       <a href="/checkout" class="tp-cart-checkout-btn w-100">Proceed to Checkout</a>

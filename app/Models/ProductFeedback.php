@@ -17,11 +17,11 @@ class ProductFeedback extends Model
 
     public function products()
     {
-        $this->belongsTo(Product::class, 'product_id');
+      return  $this->belongsTo(Product::class, 'product_id');
     }
 
-    public function users()
+    public function user()
     {
-        $this->belongsTo(User::class);
+      return  $this->belongsTo(User::class);
     }
 }
