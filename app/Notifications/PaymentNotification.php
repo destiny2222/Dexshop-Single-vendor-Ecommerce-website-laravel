@@ -7,6 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Mail\Mailable;
+
 
 class PaymentNotification extends Notification
 {
@@ -37,7 +39,7 @@ class PaymentNotification extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         $notification = ModelsNotification::create([
-            'message' => 'Payment Notification: ' . $this->productInfo->name, 
+            'message' => 'Payment Notification: ' . $this->productInfo->name,
             'user_id' => $notifiable->id,
             'is_read' => false,
         ]);

@@ -43,98 +43,94 @@
                             </span>
                          </div>
                          <div class="tp-order-details-content">
-                            <h3 class="tp-order-details-title">Your Order Confirmed</h3>
-                            <p>We will send you a shipping confirmation email as soon <br> as your order ships</p>
-                         </div>
-                      </div>
-                      <div class="tp-order-details-item-wrapper">
-                         <div class="row">
-                            <div class="col-sm-6">
-                               <div class="tp-order-details-item">
-                                  <h4>Order Date:</h4>
-                                  <p>April 10, 2023</p>
-                               </div>
-                            </div>
-                            <div class="col-sm-6">
-                               <div class="tp-order-details-item">
-                                  <h4>Expected Delivery: </h4>
-                                  <p>April 16, 2023</p>
-                               </div>
-                            </div>
-                            <div class="col-sm-6">
-                               <div class="tp-order-details-item">
-                                  <h4>Order Number:</h4>
-                                  <p>#9641</p>
-                               </div>
-                            </div>
-                            <div class="col-sm-6">
-                               <div class="tp-order-details-item">
-                                  <h4>Payment Method:</h4>
-                                  <p>Credit Card</p>
-                               </div>
-                            </div>
-                         </div>
-                      </div>
-                   </div>
-                </div>
-                <div class="col-lg-6">
-                   <div class="tp-order-info-wrapper">
-                      <h4 class="tp-order-info-title">Order Details</h4>
+    <h3 class="tp-order-details-title">Your Order Confirmed</h3>
+    <p>We will send you a shipping confirmation email as soon <br> as your order ships</p>
+</div>
+</div>
+<div class="tp-order-details-item-wrapper">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="tp-order-details-item">
+                <h4>Order Date:</h4>
+                <p>{{ $order->payment_date->format('F d, Y') }}</p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="tp-order-details-item">
+                <h4>Expected Delivery: </h4>
+                @if ($order->expected_delivery)
+                    <p>{{ $order->expected_delivery->format('F d, Y') }}</p>
+                @else
+                    <p>N/A</p>
+                @endif
+            </div>
 
-                      <div class="tp-order-info-list">
-                         <ul>
+        </div>
+        <div class="col-sm-6">
+            <div class="tp-order-details-item">
+                <h4>Order Number:</h4>
+                <p>#{{ $order->id }}</p>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="tp-order-details-item">
+                <h4>Payment Method:</h4>
+                <p>Credit Card</p>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="col-lg-6">
+    <div class="tp-order-info-wrapper">
+        <h4 class="tp-order-info-title">Order Details</h4>
 
-                            <!-- header -->
-                            <li class="tp-order-info-list-header">
-                               <h4>Product</h4>
-                               <h4>Total</h4>
-                            </li>
+        <div class="tp-order-info-list">
+            <ul>
 
-                            <!-- item list -->
-                            <li class="tp-order-info-list-desc">
-                               <p>Xiaomi Redmi Note 9 Global V. <span> x 2</span></p>
-                               <span>$274:00</span>
-                            </li>
-                            <li class="tp-order-info-list-desc">
-                               <p>Office Chair Multifun <span> x 1</span></p>
-                               <span>$74:00</span>
-                            </li>
-                            <li class="tp-order-info-list-desc">
-                               <p>Apple Watch Series 6 Stainless  <span> x 3</span></p>
-                               <span>$362:00</span>
-                            </li>
-                            <li class="tp-order-info-list-desc">
-                               <p>Body Works Mens Collection <span> x 1</span></p>
-                               <span>$145:00</span>
-                            </li>
+                <!-- header -->
+                <li class="tp-order-info-list-header">
+                    <h4>Product</h4>
+                    <h4>Total</h4>
+                </li>
 
-                            <!-- subtotal -->
-                            <li class="tp-order-info-list-subtotal">
-                               <span>Subtotal</span>
-                               <span>$507.00</span>
-                            </li>
+                <!-- item list -->
+                @foreach ($order->items as $item)
+                <li class="tp-order-info-list-desc">
+                    <p>{{ $item->product->name }} <span> x {{ $item->quantity }}</span></p>
+                    <span>{{ $item->total }}</span>
+                </li>
+                @endforeach
 
-                            <!-- shipping -->
-                         <!-- shipping -->
-                         <li class="tp-order-info-list-shipping">
-                            <span>Shipping</span>
-                            <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
-                               <span>
-                                  <input id="shipping_info" type="checkbox">
-                                  <label for="shipping_info">Flat rate: <span>$20.00</span></label>
-                               </span>
-                            </div>
-                         </li>
+                <!-- subtotal -->
+                <li class="tp-order-info-list-subtotal">
+                    <span>Subtotal</span>
+                    <span>{{ $order->subtotal }}</span>
+                </li>
 
-                            <!-- total -->
-                            <li class="tp-order-info-list-total">
-                               <span>Total</span>
-                               <span>$1,476.00</span>
-                            </li>
-                         </ul>
-                      </div>
-                   </div>
-                </div>
+                <!-- shipping -->
+                <!-- shipping -->
+                <li class="tp-order-info-list-shipping">
+                    <span>Shipping</span>
+                    <div class="tp-order-info-list-shipping-item d-flex flex-column align-items-end">
+                        <span>
+                            <input id="shipping_info" type="checkbox">
+                            <label for="shipping_info">Free</label>
+                        </span>
+                    </div>
+                </li>
+
+                <!-- total -->
+                <li class="tp-order-info-list-total">
+                    <span>Total</span>
+                    <span>{{ $order->total }}</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
              </div>
           </div>
        </div>

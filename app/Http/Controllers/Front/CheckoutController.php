@@ -150,11 +150,12 @@ class CheckoutController extends Controller
             $user->notify(new PaymentNotification($productInfo));
 
             // Send notification to administrator with product information
-            $administratorEmail = 'admin@example.com';
+            $administratorEmail = 'dexnovate@gmail.com';
             Notification::route('mail', $administratorEmail)
                 ->notify(new PaymentNotification($productInfo));
             // return response()->json(['success' => true]);
-            return back()->view('frontend.order' , ['order' => $order])->with('success', 'Payment successful');
+            dd($order);
+            return view('frontend.order', ['order' => $order])->with('success', 'Payment successful');
         } else {
             return back()->with('error', 'Payment failed');
         }
@@ -164,24 +165,24 @@ class CheckoutController extends Controller
 
 
 
-    public function handlePaystackWebhook(Request $request)
-    {
-        try {
-            $event = $request->input('event');
-            if ($event === 'charge.success') {
-                $reference = $request->input('data.reference');
-                $order = Order::where('reference', $reference)->first();
-                if ($order) {
-                    $order->status = 'paid';
-                    $order->save();
-                }
-            }
-            return response()->json(['success' => true]);
-        } catch (\Exception $exception) {
-            Log::error($exception->getMessage());
-            return back()->with('error', 'Ooop  Something Went Wrong');
-        }
-    }
+    // public function s(Request $request)
+    // {
+    //     try {
+    //         $event = $request->input('event');
+    //         if ($event === 'charge.success') {
+    //             $reference = $request->input('data.reference');
+    //             $order = Order::where('reference', $reference)->first();
+    //             if ($order) {
+    //                 $order->status = 'paid';
+    //                 $order->save();
+    //             }
+    //         }
+    //         return response()->json(['success' => true]);
+    //     } catch (\Exception $exception) {
+    //         Log::error($exception->getMessage());
+    //         return back()->with('error', 'Ooop  Something Went Wrong');
+    //     }
+    // }
 
 
 
